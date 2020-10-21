@@ -40,4 +40,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get user's bookmarks
+     *
+     */
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Bookmark');
+    }
 }

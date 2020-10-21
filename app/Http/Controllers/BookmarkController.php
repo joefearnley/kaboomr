@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
@@ -14,7 +15,9 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        
+        $bookmarks = Auth::user()->bookmarks;
+
+        return view('bookmarks', ['bookmarks' => $bookmarks]);
     }
 
     /**
