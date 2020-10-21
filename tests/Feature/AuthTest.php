@@ -5,9 +5,11 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class AuthTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function test_login_page_displays_login_form()
     {
@@ -54,5 +56,23 @@ class AuthTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
+    }
+
+
+    public function test_login_form_redirects_to_bookmarks_page()
+    {
+        $user = User::factory()->create();
+
+        $formData = [
+            'email' => $user->email,
+            'password' => 'password',
+        ];
+
+        $response = $this->post('/login', $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/bookmarks');
+
+        $this->assertAuthenticatedAs($user);
     }
 }
