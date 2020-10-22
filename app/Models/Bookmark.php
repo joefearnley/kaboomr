@@ -9,6 +9,12 @@ class Bookmark extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'url',
+        'description',
+    ];
+
     /**
      * Get user that owns bookmark
      */

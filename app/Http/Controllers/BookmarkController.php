@@ -17,7 +17,7 @@ class BookmarkController extends Controller
     {
         $bookmarks = Auth::user()->bookmarks;
 
-        return view('bookmarks', ['bookmarks' => $bookmarks]);
+        return view('bookmarks.index', ['bookmarks' => $bookmarks]);
     }
 
     /**
@@ -27,18 +27,25 @@ class BookmarkController extends Controller
      */
     public function create()
     {
-        //
+        return view('bookmarks.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new created bookmark.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:150',
+            'url' => 'required|url',
+        ]);
+
+        Auth::user()->bookmarks()->create($request->all());
+
+        return redirect('/bookmarks');
     }
 
     /**
