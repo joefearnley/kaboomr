@@ -19,7 +19,7 @@ class CreateBookmarksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->char('name', 150);
             $table->char('url', 150);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

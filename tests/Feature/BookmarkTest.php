@@ -166,5 +166,7 @@ class BookmarkTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
+
+        $this->assertDatabaseHas('bookmarks', $formData);
     }
 }
