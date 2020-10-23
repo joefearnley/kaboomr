@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Bookmark');
     }
 
+    public function ownsBookmark(Bookmark $bookmark)
+    {
+        return $this->id === $bookmark->user->id;
+    }
+
     public function createBookmark($data)
     {
         

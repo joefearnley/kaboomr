@@ -13,4 +13,4 @@ Account
 - [ ] Update Email
 - [ ] Change password
 
-* Tags
+Tags

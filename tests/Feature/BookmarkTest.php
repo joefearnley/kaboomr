@@ -169,4 +169,78 @@ class BookmarkTest extends TestCase
 
         $this->assertDatabaseHas('bookmarks', $formData);
     }
+
+    public function test_cannot_edit_bookmark_that_does_not_belong_to_user()
+    {
+        $user1 = User::factory()
+            ->hasBookmarks(2)
+            ->create();
+
+        $user2 = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmarkToEditId = $user2->bookmarks->first()->id;
+
+        $response = $this
+            ->actingAs($user1)
+            ->get('/bookmarks/' . $bookmarkToEditId .'/edit/');
+
+        $response->assertStatus(403);
+    }
+
+    public function test_edit_page_loads()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/bookmarks/' . $bookmark->id .'/edit/');
+
+        $response->assertStatus(200);
+        $response->assertSee($bookmark->name);
+        $response->assertSee($bookmark->url);
+        $response->assertSee($bookmark->description);
+    }
+
+    public function test_cannot_update_bookmark_with_no_url()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $formData = [
+            'name' => $bookmark->name,
+            'url' => '',
+            'description' => $bookmark->description,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors('url');
+    }
+
+    // public function test_can_edit_bookmark()
+    // {
+    //     $user = User::factory()
+    //         ->hasBookmarks(1)
+    //         ->create();
+
+    //     $bookmark = $user->bookmarks->first();
+
+    //     $response = $this
+    //         ->actingAs($user)
+    //         ->get('/bookmarks/' . $bookmark->id .'/edit/');
+
+    //     $response->assertStatus(200);
+    // }
 }

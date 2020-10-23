@@ -60,14 +60,18 @@ class BookmarkController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing bookmarks.
      *
      * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
     public function edit(Bookmark $bookmark)
     {
-        //
+        if (Auth::user()->ownsBookmark($bookmark)) {
+            return view('bookmarks.edit', ['bookmark' => $bookmark]);
+        }
+
+        abort(403);
     }
 
     /**
@@ -79,7 +83,14 @@ class BookmarkController extends Controller
      */
     public function update(Request $request, Bookmark $bookmark)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:150',
+            'url' => 'required|url',
+        ]);
+
+        Auth::user()->bookmarks()->update($request->all());
+
+        return redirect('/bookmarks');
     }
 
     /**
