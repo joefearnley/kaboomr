@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable
 {
@@ -55,8 +56,17 @@ class User extends Authenticatable
         return $this->id === $bookmark->user->id;
     }
 
-    public function createBookmark($data)
+    public function createBookmark(Bookmark $bookmark)
     {
-        
+        $this->bookmarks()->create($bookmark);
+    }
+
+    public function updateBookmark(Request $request, Bookmark $bookmark)
+    {
+        $bookmark->name = $request->input('name');
+        $bookmark->url = $request->input('url');
+        $bookmark->description = $request->input('description');
+
+        $this->bookmarks()->save($bookmark);
     }
 }

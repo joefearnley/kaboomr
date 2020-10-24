@@ -43,7 +43,7 @@ class BookmarkController extends Controller
             'url' => 'required|url',
         ]);
 
-        Auth::user()->bookmarks()->create($request->all());
+        Auth::user()->createBookmark(new Bookmark($request->all()));
 
         return redirect('/bookmarks');
     }
@@ -75,7 +75,7 @@ class BookmarkController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified bookmark.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Bookmark  $bookmark
@@ -88,7 +88,7 @@ class BookmarkController extends Controller
             'url' => 'required|url',
         ]);
 
-        Auth::user()->bookmarks()->update($request->all());
+        Auth::user()->updateBookmark($request, $bookmark);
 
         return redirect('/bookmarks');
     }
