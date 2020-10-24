@@ -280,18 +280,32 @@ class BookmarkTest extends TestCase
         $response->assertSessionHasErrors('url');
     }
 
-    // public function test_can_edit_bookmark()
-    // {
-    //     $user = User::factory()
-    //         ->hasBookmarks(1)
-    //         ->create();
+    public function test_can_edit_bookmark()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
 
-    //     $bookmark = $user->bookmarks->first();
+        $bookmark = $user->bookmarks->first();
 
-    //     $response = $this
-    //         ->actingAs($user)
-    //         ->get('/bookmarks/' . $bookmark->id .'/edit/');
+        $formData = [
+            '_method' => 'PUT',
+            'name' => 'This is an updated bookmark',
+            'url' => 'https://lmgtfy.app/',
+            'description' => 'This is an updated description.',
+        ];
 
-    //     $response->assertStatus(200);
-    // }
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
+        $bookmark->refresh();
+
+        $this->assertEquals($formData['name'], $bookmark->name);
+        $this->assertEquals($formData['url'], $bookmark->url);
+        $this->assertEquals($formData['description'], $bookmark->description);
+    }
 }
