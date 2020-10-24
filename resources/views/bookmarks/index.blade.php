@@ -40,6 +40,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer bg-transparent tags">
+                        <a href="#" class="badge badge-light mr-2">dev</a>
+                        <a href="#" class="badge badge-light mr-2">python</a>
+                        <a href="#" class="badge badge-light mr-2">javascript</a>
+                        <a href="#" class="badge badge-light mr-2">JS</a>
+                    </div>
                 </div>
             </div>
         </div>

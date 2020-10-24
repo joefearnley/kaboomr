@@ -10908,7 +10908,7 @@ body {
   height: 100%;
 }
 
-.card-header {
-  background-color: white;
+.badge {
+  font-size: 95%;
 }
 
