@@ -43,6 +43,8 @@ class BookmarkTest extends TestCase
 
         $user->bookmarks->each(function ($bookmark) use ($response) {
             $response->assertSee($bookmark->name);
+            $response->assertSee($bookmark->url);
+            $response->assertSee($bookmark->description);
         });
     }
 
@@ -62,10 +64,14 @@ class BookmarkTest extends TestCase
 
         $user1->bookmarks->each(function ($bookmark) use ($response) {
             $response->assertSee($bookmark->name);
+            $response->assertSee($bookmark->url);
+            $response->assertSee($bookmark->description);
         });
 
         $user2->bookmarks->each(function ($bookmark) use ($response) {
             $response->assertDontSee($bookmark->name);
+            $response->assertDontSee($bookmark->url);
+            $response->assertDontSee($bookmark->description);
         });
     }
 
@@ -207,6 +213,50 @@ class BookmarkTest extends TestCase
         $response->assertSee($bookmark->description);
     }
 
+    public function test_cannot_update_bookmark_with_no__method()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $formData = [
+            'name' => $bookmark->name,
+            'url' => $bookmark->url,
+            'description' => $bookmark->description,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(405);
+    }
+
+    public function test_cannot_update_bookmark_with_no_name()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => '',
+            'url' => $bookmark->url,
+            'description' => $bookmark->description,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors('name');
+    }
+
     public function test_cannot_update_bookmark_with_no_url()
     {
         $user = User::factory()
@@ -216,6 +266,7 @@ class BookmarkTest extends TestCase
         $bookmark = $user->bookmarks->first();
 
         $formData = [
+            '_method' => 'PUT',
             'name' => $bookmark->name,
             'url' => '',
             'description' => $bookmark->description,

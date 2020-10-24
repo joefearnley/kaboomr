@@ -25,9 +25,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-8 my-auto">
-                                <h2>{{ $bookmark->name }}</h2>
-                                <p>{{ $bookmark->url }}</p>
+                            <div class="col-md-8 my-auto bookmark-detail">
+                                <h2 class="title">{{ $bookmark->name }}</h2>
+                                <p class="url">
+                                    <a href="{{ $bookmark->url }}" target="_blank">
+                                        {{ $bookmark->url }}
+                                    </a>
+                                </p>
+                                <p class="description">{{ $bookmark->description }}</p>
                             </div>
                             <div class="col-md-4 justify-content-center my-auto">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-secondary mr-3">Edit</a>

@@ -50,17 +50,36 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Bookmark');
     }
-
+    
+    /**
+     * Check to see if a user "own's" a bookmark.
+     *
+     * @param  mixed $bookmark
+     * @return void
+     */
     public function ownsBookmark(Bookmark $bookmark)
     {
         return $this->id === $bookmark->user->id;
     }
-
+    
+    /**
+     * Create a bookmark for a user.
+     *
+     * @param  mixed $bookmark
+     * @return void
+     */
     public function createBookmark(Bookmark $bookmark)
     {
-        $this->bookmarks()->create($bookmark);
+        $this->bookmarks()->create($bookmark->toArray());
     }
-
+    
+    /**
+     * Update a user's bookmark
+     *
+     * @param  mixed $request
+     * @param  mixed $bookmark
+     * @return void
+     */
     public function updateBookmark(Request $request, Bookmark $bookmark)
     {
         $bookmark->name = $request->input('name');
