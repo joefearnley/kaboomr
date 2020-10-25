@@ -37274,6 +37274,19 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+document.addEventListener('keyup', function (event) {
+  if (event.keyCode == 13) {
+    console.log('preventing default.....');
+    event.preventDefault();
+
+    if (event.target.id === 'tags') {
+      console.log(event.target.value);
+    }
+
+    return false;
+  }
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

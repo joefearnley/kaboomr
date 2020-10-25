@@ -14,4 +14,14 @@ html, body {
 
 .badge {
     font-size: 95%;
+
+    &.tag-input {
+        font-size: 1.1rem;
+        padding: 0.5em 0.75em;
+
+        svg:hover {
+            cursor: pointer;
+        }
+    }
 }
+

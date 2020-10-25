@@ -10912,3 +10912,12 @@ body {
   font-size: 95%;
 }
 
+.badge.tag-input {
+  font-size: 1.1rem;
+  padding: 0.5em 0.75em;
+}
+
+.badge.tag-input svg:hover {
+  cursor: pointer;
+}
+

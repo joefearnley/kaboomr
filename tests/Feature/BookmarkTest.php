@@ -176,6 +176,24 @@ class BookmarkTest extends TestCase
         $this->assertDatabaseHas('bookmarks', $formData);
     }
 
+    // public function test_can_create_bookmark_with_tags()
+    // {
+    //     $user = User::factory()->create();
+
+    //     $formData = [
+    //         'name' => 'Google',
+    //         'url' => 'http://google.com',
+    //         'description' => 'This is a description',
+    //     ];
+
+    //     $response = $this->actingAs($user)->post('/bookmarks', $formData);
+
+    //     $response->assertStatus(302);
+    //     $response->assertRedirect(route('bookmarks.index'));
+
+    //     $this->assertDatabaseHas('bookmarks', $formData);
+    // }
+
     public function test_cannot_edit_bookmark_that_does_not_belong_to_user()
     {
         $user1 = User::factory()
