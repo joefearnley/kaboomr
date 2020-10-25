@@ -49,17 +49,6 @@ class BookmarkController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bookmark  $bookmark
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bookmark $bookmark)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing bookmarks.
      *
      * @param  \App\Models\Bookmark  $bookmark
@@ -94,13 +83,19 @@ class BookmarkController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a bookmark.
      *
      * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bookmark $bookmark)
     {
-        //
+        if (Auth::user()->ownsBookmark($bookmark)) {
+            Auth::user()->deleteBookmark($bookmark);
+
+            return redirect('/bookmarks');
+        }
+
+        abort(403);
     }
 }

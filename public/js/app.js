@@ -37272,19 +37272,29 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // document.addEventListener('keyup', event => {
+//     if (event.keyCode == 13) {
+//         console.log('preventing default.....');
+//         event.preventDefault();
+//         if (event.target.id === 'tags') {
+//             console.log(event.target.value);
+//         }
+//         return false;
+//     }
+// });
 
-document.addEventListener('keyup', function (event) {
-  if (event.keyCode == 13) {
-    console.log('preventing default.....');
+
+var confirmBookmarkDeleteButtons = document.querySelectorAll('.confirm-bookmark-delete');
+var deleteBookmarkForm = document.querySelector('#delete-bookmark');
+confirmBookmarkDeleteButtons.forEach(function (el) {
+  return el.addEventListener('click', function (event) {
     event.preventDefault();
+    var deleteBookmark = confirm('Are you sure you want to delete this bookmark?');
 
-    if (event.target.id === 'tags') {
-      console.log(event.target.value);
+    if (deleteBookmark) {
+      deleteBookmarkForm.submit();
     }
-
-    return false;
-  }
+  });
 });
 
 /***/ }),

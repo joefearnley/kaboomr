@@ -194,7 +194,7 @@ class BookmarkTest extends TestCase
     //     $this->assertDatabaseHas('bookmarks', $formData);
     // }
 
-    public function test_cannot_edit_bookmark_that_does_not_belong_to_user()
+    public function test_cannot_edit_bookmark_that_user_does_not_own()
     {
         $user1 = User::factory()
             ->hasBookmarks(2)
@@ -204,11 +204,11 @@ class BookmarkTest extends TestCase
             ->hasBookmarks(1)
             ->create();
 
-        $bookmarkToEditId = $user2->bookmarks->first()->id;
+        $bookmarkToDEditId = $user2->bookmarks->first()->id;
 
         $response = $this
             ->actingAs($user1)
-            ->get('/bookmarks/' . $bookmarkToEditId .'/edit/');
+            ->get('/bookmarks/' . $bookmarkToDEditId .'/edit/');
 
         $response->assertStatus(403);
     }
@@ -325,5 +325,54 @@ class BookmarkTest extends TestCase
         $this->assertEquals($formData['name'], $bookmark->name);
         $this->assertEquals($formData['url'], $bookmark->url);
         $this->assertEquals($formData['description'], $bookmark->description);
+    }
+
+    public function test_cannot_delete_bookmark_that_user_does_not_own()
+    {
+        $user1 = User::factory()
+            ->hasBookmarks(2)
+            ->create();
+
+        $user2 = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmarkToDeleteId = $user2->bookmarks->first()->id;
+
+        $formData = [
+            '_method' => 'Delete',
+        ];
+
+        $response = $this
+            ->actingAs($user1)
+            ->post('/bookmarks/' . $bookmarkToDeleteId, $formData);
+
+        $response->assertStatus(403);
+    }
+
+    public function test_can_delete_bookmark()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $this->assertDatabaseHas('bookmarks', [
+            'id' => $bookmark->id
+        ]);
+
+        $formData = [
+            '_method' => 'Delete',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $this->assertDatabaseMissing('bookmarks', [
+            'id' => $bookmark->id
+        ]);
     }
 }

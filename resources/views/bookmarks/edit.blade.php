@@ -6,7 +6,7 @@
         <div class="col-md-8 mt-4">
             <form action="{{ route('bookmarks.update', $bookmark) }}" method="post">
                 @csrf
-                <input type="hidden" name="_method" value="PUT">
+                @method('PUT')
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" value="{{ $bookmark->name }}" name="name" class="form-control" id="name" aria-describedby="nameHelp" required>

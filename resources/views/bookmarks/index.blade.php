@@ -35,8 +35,16 @@
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
                             <div class="col-md-4 justify-content-center my-auto">
-                                <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-secondary mr-3">Edit</a>
-                                <a href="/bookmarks/{{ $bookmark->id }}/delete/" class="btn btn-danger">Delete</a>
+                                <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-secondary mr-3">
+                                    Edit
+                                </a>
+                                <a href="/bookmarks/{{ $bookmark->id }}/delete/" class="btn btn-danger confirm-bookmark-delete">
+                                    Delete
+                                </a>
+                                <form id="delete-bookmark" action="{{ route('bookmarks.destroy', $bookmark) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                             </div>
                         </div>
                     </div>

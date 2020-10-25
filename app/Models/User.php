@@ -88,4 +88,15 @@ class User extends Authenticatable
 
         $this->bookmarks()->save($bookmark);
     }
+
+    /**
+     * Delete a user's bookmark
+     *
+     * @param  mixed $bookmark
+     * @return void
+     */
+    public function deleteBookmark(Bookmark $bookmark)
+    {
+        $bookmark->delete();
+    }
 }
