@@ -37272,17 +37272,18 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // document.addEventListener('keyup', event => {
-//     if (event.keyCode == 13) {
-//         console.log('preventing default.....');
-//         event.preventDefault();
-//         if (event.target.id === 'tags') {
-//             console.log(event.target.value);
-//         }
-//         return false;
-//     }
-// });
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./bookmark.js */ "./resources/js/bookmark.js");
+
+/***/ }),
+
+/***/ "./resources/js/bookmark.js":
+/*!**********************************!*\
+  !*** ./resources/js/bookmark.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 var confirmBookmarkDeleteButtons = document.querySelectorAll('.confirm-bookmark-delete');
 var deleteBookmarkForm = document.querySelector('#delete-bookmark');
@@ -37294,6 +37295,37 @@ confirmBookmarkDeleteButtons.forEach(function (el) {
     if (deleteBookmark) {
       deleteBookmarkForm.submit();
     }
+  });
+});
+var createBookmarkSubmitButton = document.querySelector('#create-bookmark-submit-button');
+console.log(createBookmarkSubmitButton);
+createBookmarkSubmitButton.addEventListener('submit', function (event) {
+  event.preventDefault();
+  var createBookmarkForm = document.querySelector('#create-bookmark-form');
+  var formData = new FormData(form);
+  console.log(formData);
+  var inputTags = []; // gather up tags...
+
+  document.querySelectorAll('#tags-input > span').forEach(function (el) {
+    console.log(el.textContent); // for (var i = 0; i < array.length; i++) {
+    //     formData.append('array_php_side[]', array[i]);
+    // }
+  });
+  return false; // createBookmarkForm.submit();
+});
+var addTagButton = document.querySelector('#add-tag-button');
+var addTagInput = document.querySelector('#add-tag-input');
+var tagInputs = document.querySelector('.tags-input');
+addTagButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  var newTagMarkup = "\n        <span class=\"badge badge-pill badge-primary mr-2 mt-2 tag-input\">\n            ".concat(addTagInput.value, "\n            <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-x\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\">\n                <path fill-rule=\"evenodd\" d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z\"/>\n            </svg>\n        </span>\n    ");
+  tagInputs.innerHTML += newTagMarkup;
+  addTagInput.value = '';
+});
+var tagRemoveButtons = document.querySelectorAll('.tag-input svg');
+tagRemoveButtons.forEach(function (el) {
+  return el.addEventListener('click', function (event) {
+    event.target.parentElement.remove();
   });
 });
 
