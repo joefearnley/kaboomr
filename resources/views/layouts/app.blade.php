@@ -69,5 +69,7 @@
     <main class="h-100">
         @yield('content')
     </main>
+
+    @yield('scripts')
 </body>
 </html>
