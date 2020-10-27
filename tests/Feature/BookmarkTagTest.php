@@ -12,11 +12,6 @@ class BookmarkTagTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_tag_section_loads_on_create_bookmark_form()
-    {
-        
-    }
-
     public function test_create_bookmark_with_tags()
     {
         // as a user

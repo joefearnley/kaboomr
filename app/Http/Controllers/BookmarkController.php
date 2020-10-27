@@ -43,7 +43,11 @@ class BookmarkController extends Controller
             'url' => 'required|url',
         ]);
 
-        Auth::user()->createBookmark(new Bookmark($request->all()));
+        $bookmark = Auth::user()->createBookmark(new Bookmark($request->all()));
+
+        if ($request->tags) {
+            $bookmark->tag(explode(',', $request->tags));
+        }
 
         return redirect('/bookmarks');
     }

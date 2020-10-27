@@ -95,19 +95,15 @@
 
 var createBookmarkForm = document.querySelector('#create-bookmark-form');
 createBookmarkForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  var createBookmarkForm = document.querySelector('#create-bookmark-form');
-  var formData = new FormData(createBookmarkForm); // gather up the tags...
+  event.preventDefault(); // gather up the tags...
 
   var inputTags = [];
   document.querySelectorAll('.tags-input > span').forEach(function (el) {
     inputTags.push(el.textContent.trim());
-
-    for (var i = 0; i < inputTags.length; i++) {
-      formData.append('tags[]', inputTags[i]);
-    }
   });
-  return false; // createBookmarkForm.submit();
+  var tagInput = document.querySelector('#tags');
+  tagInput.value = inputTags.join(',');
+  createBookmarkForm.submit();
 });
 var addTagButton = document.querySelector('#add-tag-button');
 var addTagInput = document.querySelector('#add-tag-input');
@@ -134,7 +130,7 @@ addTagButton.addEventListener('click', function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/joe/projects/kaboomr/resources/js/bookmarks.js */"./resources/js/bookmarks.js");
+module.exports = __webpack_require__(/*! /Users/joef/projects/kaboomr/resources/js/bookmarks.js */"./resources/js/bookmarks.js");
 
 
 /***/ })

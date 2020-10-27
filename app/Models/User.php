@@ -70,7 +70,7 @@ class User extends Authenticatable
      */
     public function createBookmark(Bookmark $bookmark)
     {
-        $this->bookmarks()->create($bookmark->toArray());
+        return $this->bookmarks()->create($bookmark->toArray());
     }
     
     /**
@@ -86,7 +86,7 @@ class User extends Authenticatable
         $bookmark->url = $request->input('url');
         $bookmark->description = $request->input('description');
 
-        $this->bookmarks()->save($bookmark);
+        return $this->bookmarks()->save($bookmark);
     }
 
     /**

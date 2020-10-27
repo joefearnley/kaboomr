@@ -176,23 +176,36 @@ class BookmarkTest extends TestCase
         $this->assertDatabaseHas('bookmarks', $formData);
     }
 
-    // public function test_can_create_bookmark_with_tags()
-    // {
-    //     $user = User::factory()->create();
+    public function test_can_create_bookmark_with_tags()
+    {
+        $user = User::factory()->create();
 
-    //     $formData = [
-    //         'name' => 'Google',
-    //         'url' => 'http://google.com',
-    //         'description' => 'This is a description',
-    //     ];
+        $formData = [
+            'name' => 'Google',
+            'url' => 'http://google.com',
+            'description' => 'This is a description',
+            'tags' => 'google,web dev,description,test'
+        ];
 
-    //     $response = $this->actingAs($user)->post('/bookmarks', $formData);
+        $response = $this->actingAs($user)->post('/bookmarks', $formData);
 
-    //     $response->assertStatus(302);
-    //     $response->assertRedirect(route('bookmarks.index'));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
 
-    //     $this->assertDatabaseHas('bookmarks', $formData);
-    // }
+        $this->assertDatabaseHas('bookmarks', [
+            'user_id' => $user->id,
+            'name' => 'Google',
+            'url' => 'http://google.com',
+            'description' => 'This is a description',
+        ]);
+
+        // $this->assertDatabaseHas('tagging_tags', [
+        //     'user_id' => $user->id,
+        //     'name' => 'Google',
+        //     'url' => 'http://google.com',
+        //     'description' => 'This is a description',
+        // ]);
+    }
 
     public function test_cannot_edit_bookmark_that_user_does_not_own()
     {

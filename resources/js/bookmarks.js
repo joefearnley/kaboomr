@@ -2,22 +2,17 @@ const createBookmarkForm = document.querySelector('#create-bookmark-form');
 createBookmarkForm.addEventListener('submit', event => {
     event.preventDefault();
 
-    const createBookmarkForm = document.querySelector('#create-bookmark-form');
-    var formData = new FormData(createBookmarkForm);
-
     // gather up the tags...
     let inputTags = [];
     document.querySelectorAll('.tags-input > span')
         .forEach(el => {
             inputTags.push(el.textContent.trim());
-            for (let i = 0; i < inputTags.length; i++) {
-                formData.append('tags[]', inputTags[i]);
-            }
         });
 
-        return false;
+    const tagInput = document.querySelector('#tags');
+    tagInput.value = inputTags.join(',');
 
-    // createBookmarkForm.submit();
+    createBookmarkForm.submit();
 });
 
 const addTagButton = document.querySelector('#add-tag-button');

@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="tags">Tags</label>
                     <div class="input-group mb-3">
-                        <input type="text" name="tags" id="add-tag-input" class="form-control" aria-label="add tag" aria-describedby="add-tag">
+                        <input type="text" name="tags-input" id="add-tag-input" class="form-control" aria-label="add tag" aria-describedby="add-tag">
                         <div class="input-group-append">
                             <button type="button" id="add-tag-button" class="btn btn-outline-secondary">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -42,6 +42,7 @@
                     </div>
                 <div class="tags-input mt-2 mb-5">
                 </div>
+                <input type="hidden" name="tags" id="tags" />
                 <button type="submit" id="create-bookmark-submit-button" class="btn btn-secondary mr-2">
                     Create
                 </button>
