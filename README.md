@@ -5,12 +5,15 @@ Guess who's back in the roomr.
 ### TODO
 
 Bookmarks
- - [ ] Edit Bookmark
- - [ ] Delete Bookmark
+ - [x] Edit Bookmark
+ - [x] Delete Bookmark
 
 Account
 - [ ] Update Name
 - [ ] Update Email
 - [ ] Change password
 
-Tags
+Search
+- [ ] search by string
+- [ ] search by tag
+- [ ] search by multiple tags
