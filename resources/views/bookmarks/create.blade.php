@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center mt-4 align-self-center">
         <div class="col-md-8 mt-4">
-            <form id="create-bookmark-form" action="{{ route('bookmarks.store') }}" method="post">
+            <form id="bookmark-form" action="{{ route('bookmarks.store') }}" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>

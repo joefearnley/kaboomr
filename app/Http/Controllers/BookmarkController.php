@@ -83,6 +83,10 @@ class BookmarkController extends Controller
 
         Auth::user()->updateBookmark($request, $bookmark);
 
+        if ($request->tags) {
+            $bookmark->retag(explode(',', $request->tags));
+        }
+
         return redirect('/bookmarks');
     }
 

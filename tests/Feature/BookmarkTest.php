@@ -254,6 +254,8 @@ class BookmarkTest extends TestCase
             ->create();
 
         $bookmark = $user->bookmarks->first();
+        $tags = ['tag1', 'tag2'];
+        $bookmark->tag($tags);
 
         $response = $this
             ->actingAs($user)
@@ -263,6 +265,8 @@ class BookmarkTest extends TestCase
         $response->assertSee($bookmark->name);
         $response->assertSee($bookmark->url);
         $response->assertSee($bookmark->description);
+        $response->assertSee(\Illuminate\Support\Str::title($tags[0]));
+        $response->assertSee(\Illuminate\Support\Str::title($tags[1]));
     }
 
     public function test_cannot_update_bookmark_with_no__method()
@@ -340,11 +344,14 @@ class BookmarkTest extends TestCase
 
         $bookmark = $user->bookmarks->first();
 
+        $tags = ['tag1', 'tag2', 'tag3'];
+
         $formData = [
             '_method' => 'PUT',
             'name' => 'This is an updated bookmark',
             'url' => 'https://lmgtfy.app/',
             'description' => 'This is an updated description.',
+            'tags' => implode(',', $tags)
         ];
 
         $response = $this
@@ -359,6 +366,11 @@ class BookmarkTest extends TestCase
         $this->assertEquals($formData['name'], $bookmark->name);
         $this->assertEquals($formData['url'], $bookmark->url);
         $this->assertEquals($formData['description'], $bookmark->description);
+
+        $bookmarkTags = $bookmark->tagNames();
+        $this->assertEquals(\Illuminate\Support\Str::title($tags[0]), $bookmarkTags[0]);
+        $this->assertEquals(\Illuminate\Support\Str::title($tags[1]), $bookmarkTags[1]);
+        $this->assertEquals(\Illuminate\Support\Str::title($tags[2]), $bookmarkTags[2]);
     }
 
     public function test_cannot_delete_bookmark_that_user_does_not_own()
