@@ -13,7 +13,7 @@
         </div>
     @else
         <div class="row mt-4">
-        <div class="col-md-5 offset-md-1 my-2 text-right">
+            <div class="col-md-5 offset-md-1 my-2">
                 <h4>Bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
             </div>
             <div class="col-md-5 my-2 text-right">
