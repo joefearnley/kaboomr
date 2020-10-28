@@ -20,7 +20,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @auth
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -38,6 +37,7 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
+                @auth
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
@@ -60,11 +60,22 @@
                             </form>
                         </div>
                     </li>
+                @else
+                    <li class="nav-item mr-5">
+                        <a href="{{ route('login') }}">
+                            Log in
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}">
+                            Sign up
+                        </a>
+                    </li>
+                @endif
                 </ul>
             </div>
         </div>
     </nav>
-    @endif
 
     <main class="h-100">
         @yield('content')

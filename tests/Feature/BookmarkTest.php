@@ -48,6 +48,29 @@ class BookmarkTest extends TestCase
         });
     }
 
+    public function test_bookmarks_shows_bookmark_list_with_tags()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+        $bookmark->tag(['tag1', 'tag2']);
+
+        $response = $this->actingAs($user)->get('/bookmarks');
+
+        $response->assertStatus(200);
+
+        $user->bookmarks->each(function ($bookmark) use ($response) {
+            $response->assertSee($bookmark->name);
+            $response->assertSee($bookmark->url);
+            $response->assertSee($bookmark->description);
+        });
+
+        $response->assertSee('tag1');
+        $response->assertSee('tag2');
+    }
+
     public function test_authenticated_user_can_only_see_their_bookmarks()
     {
         $user1 = User::factory()
@@ -199,12 +222,10 @@ class BookmarkTest extends TestCase
             'description' => 'This is a description',
         ]);
 
-        // $this->assertDatabaseHas('tagging_tags', [
-        //     'user_id' => $user->id,
-        //     'name' => 'Google',
-        //     'url' => 'http://google.com',
-        //     'description' => 'This is a description',
-        // ]);
+        $this->assertDatabaseHas('tagging_tags', [
+            'slug' => 'google',
+            'name' => 'Google',
+        ]);
     }
 
     public function test_cannot_edit_bookmark_that_user_does_not_own()
