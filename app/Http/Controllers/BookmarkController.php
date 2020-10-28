@@ -6,10 +6,11 @@ use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class BookmarkController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of bookmarks.
      *
      * @return \Illuminate\Http\Response
      */

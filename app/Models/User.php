@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
+use App\Models\Bookmark;
 
 class User extends Authenticatable
 {
@@ -98,5 +99,21 @@ class User extends Authenticatable
     public function deleteBookmark(Bookmark $bookmark)
     {
         $bookmark->delete();
+    }
+
+    public function taggedBookmarks($tag)
+    {
+        $userId = $this->id;
+
+        $bookmarks = Bookmark::withAnyTag($tag)
+            ->get()
+            ->filter(function ($bookmark) use ($userId) {
+                return $bookmark->user_id = $userId;
+            });
+
+        return $bookmarks;
+
+        //return $this->bookmarks
+        //    ->join('tagging_tagged', 'bookmarks.id', '=', 'tagging_tagged.taggable_id');
     }
 }

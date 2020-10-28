@@ -5,7 +5,7 @@
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">
-                <h4>You do not have any bookmarks yet!</h4>
+                <h4>No bookmarks found for &quot;{{ $tag }}&quot;.</h4>
                 <p class="mt-4">
                     <a class="btn btn-secondary" href="/bookmarks/create">Create One!</a>
                 </p>

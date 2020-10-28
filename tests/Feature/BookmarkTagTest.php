@@ -12,19 +12,50 @@ class BookmarkTagTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_create_bookmark_with_tags()
+    public function test_tag_list_redirect_to_login_when_not_authenticated()
     {
-        // as a user
-        // create a bookmark
-        // add some tags
+        $response = $this->get('/bookmarks/tag/tag1');
 
-        // submit form
+        $response->assertStatus(302);
+        $response->assertRedirect(route('login'));
+    }
 
-        // confirm redirect
+    public function test_tag_list_loads_nothing_with_no_tags()
+    {
+        $user = User::factory()
+            ->hasBookmarks(3)
+            ->create();
+        
+            $tag = 'tag1';
 
-        // see bookmark in DB
-        // see tags in DB
+            $response = $this->actingAs($user)
+                ->get('/bookmarks/tag/' . $tag);
 
-        $this->assertEquals(true, true);
+        $response->assertStatus(200);
+        $response->assertViewIs('bookmarks.taglist');
+        $response->assertSee('No bookmarks found for "' . $tag . '".');
+        $response->assertSee('Create One');
+    }
+
+    public function test_tag_list_loads()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+        $tags = ['tag1', 'tag2'];
+        $bookmark->tag($tags);
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/bookmarks/tag/' . $tags[0]);
+
+        $response->assertStatus(200);
+        $response->assertSee($bookmark->name);
+        $response->assertSee($bookmark->url);
+        $response->assertSee($bookmark->description);
+        $response->assertSee(\Illuminate\Support\Str::title($tags[0]));
+        $response->assertSee(\Illuminate\Support\Str::title($tags[1]));
     }
 }
