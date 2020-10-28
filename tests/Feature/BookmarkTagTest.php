@@ -33,7 +33,7 @@ class BookmarkTagTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.taglist');
-        $response->assertSee('No bookmarks found for "' . $tag . '".');
+        $response->assertSee('No bookmarks tagged with "' . $tag . '".');
         $response->assertSee('Create One');
     }
 
@@ -47,14 +47,17 @@ class BookmarkTagTest extends TestCase
         $tags = ['tag1', 'tag2'];
         $bookmark->tag($tags);
 
+        $tag = $tags[0];
+
         $response = $this
             ->actingAs($user)
-            ->get('/bookmarks/tag/' . $tags[0]);
+            ->get('/bookmarks/tag/' . $tag);
 
         $response->assertStatus(200);
         $response->assertSee($bookmark->name);
         $response->assertSee($bookmark->url);
         $response->assertSee($bookmark->description);
+        $response->assertSee('Bookmarks tagged with "'. $tag . '".');
         $response->assertSee(\Illuminate\Support\Str::title($tags[0]));
         $response->assertSee(\Illuminate\Support\Str::title($tags[1]));
     }

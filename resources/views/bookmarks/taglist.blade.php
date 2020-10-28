@@ -5,7 +5,7 @@
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">
-                <h4>No bookmarks found for &quot;{{ $tag }}&quot;.</h4>
+                <h4>No bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
                 <p class="mt-4">
                     <a class="btn btn-secondary" href="/bookmarks/create">Create One!</a>
                 </p>
@@ -13,7 +13,10 @@
         </div>
     @else
         <div class="row mt-4">
-            <div class="col-md-11 my-2 text-right">
+        <div class="col-md-5 offset-md-1 my-2 text-right">
+                <h4>Bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
+            </div>
+            <div class="col-md-5 my-2 text-right">
                 <a href="{{ route('bookmarks.create') }}" class="btn btn-secondary">
                     {{ __('Create Bookmark') }}
                 </a>
