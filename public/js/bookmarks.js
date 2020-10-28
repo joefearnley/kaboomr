@@ -147,7 +147,7 @@ addTagButton.addEventListener('click', addButtonClickHandler);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/joef/projects/kaboomr/resources/js/bookmarks.js */"./resources/js/bookmarks.js");
+module.exports = __webpack_require__(/*! /Users/joe/projects/kaboomr/resources/js/bookmarks.js */"./resources/js/bookmarks.js");
 
 
 /***/ })
