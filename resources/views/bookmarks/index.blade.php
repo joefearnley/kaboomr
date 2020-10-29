@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8 my-auto bookmark-detail">
-                                <h2 class="title">{{ $bookmark->name }}</h2>
+                                <h5 class="title">{{ $bookmark->name }}</h5>
                                 <p class="url">
                                     <a href="{{ $bookmark->url }}" target="_blank">
                                         {{ $bookmark->url }}
