@@ -15,4 +15,14 @@ Route::resource('bookmarks', BookmarkController::class)->middleware('auth');
 
 Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])->middleware('auth');
 
-Route::get('account', [AccountController::class, 'account.index'])->middleware('auth');
+Route::get('account', [AccountController::class, 'index'])
+    ->name('account')
+    ->middleware('auth');
+
+Route::prefix('account')->group(function () {
+    Route::patch('/update-name', [AccountController::class, 'updateName'])
+        ->name('account.update-name');
+
+    Route::patch('/update-email', [AccountController::class, 'updateEmail'])
+        ->name('account.update-email');
+});

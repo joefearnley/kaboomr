@@ -46,7 +46,7 @@
                             <a class="dropdown-item" href="{{ route('bookmarks.index') }}">
                                 {{ __('Bookmarks') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('account') }}">
                                 {{ __('Account') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
