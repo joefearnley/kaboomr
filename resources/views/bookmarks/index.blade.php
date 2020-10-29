@@ -47,7 +47,7 @@
                                 </p>
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
-                            <div class="col-md-4 justify-content-center my-auto">
+                            <div class="col-md-4 justify-content-center my-auto text-center">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-secondary mr-3">
                                     Edit
                                 </a>
