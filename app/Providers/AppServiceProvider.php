@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 namespace App\Providers;
 
@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(config('app.env') === 'production') {
-            \URL::forceScheme('https');
+        if (env('APP_ENV') !== 'local') {
+            $this->app['request']->server->set('HTTPS', true);
         }
     }
 }
