@@ -34,7 +34,7 @@ class BookmarkTagTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.taglist');
         $response->assertSee('No bookmarks tagged with "' . $tag . '".');
-        $response->assertSee('Create One');
+        $response->assertSee('Create Bookmark');
     }
 
     public function test_tag_list_loads()

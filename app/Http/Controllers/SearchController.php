@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function index(Request $request)
+    public function index($term)
     {
         echo'<pre>';
-        var_dump($request->all());
+        var_dump($term);
         die();
     }
 }
