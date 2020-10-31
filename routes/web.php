@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\BookmarkTagController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\SearchController;
 
 Auth::routes();
 
@@ -26,3 +27,8 @@ Route::prefix('account')->group(function () {
     Route::patch('/update-email', [AccountController::class, 'updateEmail'])
         ->name('account.update-email');
 });
+
+
+Route::get('search/', [SearchController::class, 'index'])->middleware('auth');
+
+// Route::post('search/{term}', [SearchController::class, 'form'])->middleware('auth');
