@@ -15,7 +15,7 @@ class BookmarkTagController extends Controller
      */
     public function list($tag)
     {
-        $bookmarks = Auth::user()->taggedBookmarks($tag)->paginate(20);
+        $bookmarks = Auth::user()->taggedBookmarks($tag)->paginate(15);
 
         return view('bookmarks.taglist', [
             'tag' => $tag,

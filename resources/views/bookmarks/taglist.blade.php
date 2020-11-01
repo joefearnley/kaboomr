@@ -15,6 +15,7 @@
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">
+                <hr>
                 <h4>No bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
             </div>
         </div>

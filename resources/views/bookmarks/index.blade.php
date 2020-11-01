@@ -15,6 +15,7 @@
                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
                     </svg>
                 </button>
+            </form>
         </div>
         <div class="col-md-3 my-2">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-secondary">
@@ -25,6 +26,7 @@
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">
+                <hr>
                 <h4>You do not have any bookmarks yet!</h4>
                 <p class="mt-4">
                     <a class="btn btn-secondary" href="/bookmarks/create">Create One!</a>

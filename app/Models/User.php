@@ -116,6 +116,6 @@ class User extends Authenticatable
     public function searchBookmarks($term)
     {
         return $this->bookmarks()
-            ->where('UPPER(name)', 'LIKE', "%{$term}%");
+            ->whereRaw("UPPER(name) LIKE '%" . strtoupper($term) . "%'");
     }
 }

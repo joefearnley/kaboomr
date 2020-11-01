@@ -29,6 +29,6 @@ Route::prefix('account')->group(function () {
 });
 
 
-Route::get('search/{term}', [SearchController::class, 'index'])->middleware('auth');
+Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware('auth');
 
 // Route::post('search/{term}', [SearchController::class, 'form'])->middleware('auth');

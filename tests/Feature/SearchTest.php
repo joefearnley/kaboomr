@@ -16,23 +16,23 @@ class SearchTest extends TestCase
     {
         $searchTerm = 'test';
 
-        $response = $this->get('/search/' . $searchTerm);
+        $response = $this->get('/bookmarks/search/' . $searchTerm);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
     }
 
-    // public function test_search_returns_no_results()
-    // {
-    //     $user = User::factory()
-    //     ->hasBookmarks(3)
-    //     ->create();
+    public function test_search_returns_no_results()
+    {
+        $user = User::factory()
+        ->hasBookmarks(3)
+        ->create();
 
-    //     $searchTerm = 'asfdasdfasdf';
+        $searchTerm = 'asfdasdfasdf';
 
-    //     $response = $this->actingAs($user)->get('/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
 
-    //     $response->assertStatus(200);
-    //     $response->assertSee('No results found for "' . $term .'".');
-    // }
+        $response->assertStatus(200);
+        $response->assertSee('No results found for "' . $searchTerm  .'".');
+    }
 }

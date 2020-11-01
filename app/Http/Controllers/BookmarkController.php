@@ -6,7 +6,6 @@ use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class BookmarkController extends Controller
 {
     /**
@@ -16,7 +15,8 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        $bookmarks = Auth::user()->bookmarks()->paginate(20);
+
+        $bookmarks = Auth::user()->bookmarks()->paginate(15);
 
         return view('bookmarks.index', ['bookmarks' => $bookmarks]);
     }
