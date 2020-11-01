@@ -100,20 +100,17 @@ class User extends Authenticatable
     {
         $bookmark->delete();
     }
-
+    
+    /**
+     * Get all user's bookmarks by tag.
+     *
+     * @param  mixed $tag
+     * @return void
+     */
     public function taggedBookmarks($tag)
     {
-        $userId = $this->id;
-
-        $bookmarks = Bookmark::withAnyTag($tag)
-            ->get()
-            ->filter(function ($bookmark) use ($userId) {
-                return $bookmark->user_id = $userId;
-            });
-
-        return $bookmarks;
-
-        //return $this->bookmarks
-        //    ->join('tagging_tagged', 'bookmarks.id', '=', 'tagging_tagged.taggable_id');
+        return $this->bookmarks()
+            ->withAnyTag($tag)
+            ->get();
     }
 }

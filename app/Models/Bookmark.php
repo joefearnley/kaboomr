@@ -25,4 +25,9 @@ class Bookmark extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function search($term)
+    {
+        
+    }
+
 }

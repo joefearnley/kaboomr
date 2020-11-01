@@ -21,4 +21,18 @@ class SearchTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
     }
+
+    // public function test_search_returns_no_results()
+    // {
+    //     $user = User::factory()
+    //     ->hasBookmarks(3)
+    //     ->create();
+
+    //     $searchTerm = 'asfdasdfasdf';
+
+    //     $response = $this->actingAs($user)->get('/search/' . $searchTerm);
+
+    //     $response->assertStatus(200);
+    //     $response->assertSee('No results found for "' . $term .'".');
+    // }
 }

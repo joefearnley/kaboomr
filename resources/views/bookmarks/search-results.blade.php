@@ -14,7 +14,6 @@
             <div class="col-md-10 mt-4">
                 <h4>No results found for "{{ $term }}".</h4>
             </div>
-
         </div>
     @else
         <div class="row mt-4">
