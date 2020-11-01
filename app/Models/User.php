@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 use App\Models\Bookmark;
+use Conner\Tagging\Model\Tag;
 
 class User extends Authenticatable
 {
@@ -122,6 +123,13 @@ class User extends Authenticatable
     public function searchBookmarks($term)
     {
         return $this->bookmarks()
-            ->whereRaw("UPPER(name) LIKE '%" . strtoupper($term) . "%'");
+            ->join('tagging_tagged', function ($join) {
+                $join->on('bookmarks.id', '=', 'tagging_tagged.taggable_id');
+            })
+            ->where(function ($query) use ($term) {
+                $query->whereRaw("UPPER(bookmarks.name) LIKE '%" . strtoupper($term) . "%'")
+                    ->orWhereRaw("UPPER(tagging_tagged.tag_name) LIKE '%" . strtoupper($term) . "%'");
+            })
+            ->groupBy('bookmarks.name');
     }
 }

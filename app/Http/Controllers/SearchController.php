@@ -12,6 +12,10 @@ class SearchController extends Controller
     {
         $bookmarks = Auth::user()->searchBookmarks($term)->paginate(15);
 
+        // echo'<pre>';
+        // var_dump($bookmarks->first()->tags);
+        // die();
+
         return view('bookmarks.search-results', [
             'term' => $term,
             'bookmarks' => $bookmarks

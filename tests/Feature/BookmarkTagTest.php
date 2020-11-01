@@ -25,11 +25,11 @@ class BookmarkTagTest extends TestCase
         $user = User::factory()
             ->hasBookmarks(3)
             ->create();
-        
-            $tag = 'tag1';
 
-            $response = $this->actingAs($user)
-                ->get('/bookmarks/tag/' . $tag);
+        $tag = 'tag1';
+
+        $response = $this->actingAs($user)
+            ->get('/bookmarks/tag/' . $tag);
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.taglist');

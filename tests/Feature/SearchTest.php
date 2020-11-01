@@ -36,10 +36,10 @@ class SearchTest extends TestCase
         $response->assertSee('No results found for "' . $searchTerm  .'".');
     }
 
-    public function test_search_returns_results()
+    public function test_search_by_name_returns_results()
     {
         $user = User::factory()
-            ->hasBookmarks(3)
+            ->hasBookmarks(1)
             ->create();
 
 
@@ -48,6 +48,27 @@ class SearchTest extends TestCase
         $searchTerm = $bookmark->name;
 
         $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+
+        $response->assertStatus(200);
+        $response->assertSee($bookmark->name);
+        $response->assertSee($bookmark->url);
+        $response->assertSee($bookmark->description);
+    }
+
+    public function test_search_by_tag_returns_results()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $tags = ['tag1', 'tag2'];
+        $bookmark->tag($tags);
+
+        $searchTerm = $tags[0];
+
+        $response = $this->actingAs($user)->get('/bookmarks/search/' . $tags[0]);
 
         $response->assertStatus(200);
         $response->assertSee($bookmark->name);
