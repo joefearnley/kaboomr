@@ -35,7 +35,7 @@
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row justify-content-center mt-4 align-self-center">
+        <div class="row justify-content-center mt-4 align-self-center mb-5">
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
@@ -74,24 +74,8 @@
             </div>
         </div>
         @endforeach
-        <div class="row mt-4">
-            <div class="col-md-4 offset-md-1 my-2">
-                <nav aria-label="pages">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <span class="page-link"> 2 <span class="sr-only">(current)</span></span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="d-flex justify-content-center">
+            {{ $bookmarks->links() }}
         </div>
     @endif
 </div>

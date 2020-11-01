@@ -26,26 +26,6 @@
             </div>
         </div>
     @else
-        <div class="row mt-4">
-            <div class="col-md-4 offset-md-1 my-2">
-                <h4>Bookmarks</h4>
-            </div>
-            <div class="col-md-4">
-                <form class="form-inline my-2" action="#" method="GET">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                        </svg>
-                    </button>
-            </div>
-            <div class="col-md-3 my-2">
-                <a href="{{ route('bookmarks.create') }}" class="btn btn-secondary">
-                    {{ __('Create Bookmark') }}
-                </a>
-            </div>
-        </div>
         @foreach ($bookmarks as $bookmark)
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10">
@@ -86,24 +66,8 @@
             </div>
         </div>
         @endforeach
-        <div class="row mt-4 justify-content-center">
-            <div class="col-md-4 offset-md-1 my-2">
-                <nav aria-label="pages">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <span class="page-link"> 2 <span class="sr-only">(current)</span></span>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="d-flex justify-content-center">
+            {{ $bookmarks->links() }}
         </div>
     @endif
 </div>

@@ -21,7 +21,7 @@
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row justify-content-center mt-4 align-self-center">
+        <div class="row justify-content-center mt-4 align-self-center mb-5">
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-body">
@@ -60,6 +60,9 @@
             </div>
         </div>
         @endforeach
+        <div class="d-flex justify-content-center">
+            {{ $bookmarks->links() }}
+        </div>
     @endif
 </div>
 @endsection

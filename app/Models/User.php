@@ -49,7 +49,7 @@ class User extends Authenticatable
      */
     public function bookmarks()
     {
-        return $this->hasMany('App\Models\Bookmark');
+        return $this->hasMany('App\Models\Bookmark')->orderBy('created_at', 'desc');
     }
     
     /**
