@@ -110,7 +110,12 @@ class User extends Authenticatable
     public function taggedBookmarks($tag)
     {
         return $this->bookmarks()
-            ->withAnyTag($tag)
-            ->get();
+            ->withAnyTag($tag);
+    }
+
+    public function searchBookmarks($term)
+    {
+        return $this->bookmarks()
+            ->where('UPPER(name)', 'LIKE', "%{$term}%");
     }
 }
