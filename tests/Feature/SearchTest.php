@@ -25,8 +25,8 @@ class SearchTest extends TestCase
     public function test_search_returns_no_results()
     {
         $user = User::factory()
-        ->hasBookmarks(3)
-        ->create();
+            ->hasBookmarks(3)
+            ->create();
 
         $searchTerm = 'asfdasdfasdf';
 
@@ -34,5 +34,24 @@ class SearchTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('No results found for "' . $searchTerm  .'".');
+    }
+
+    public function test_search_returns_results()
+    {
+        $user = User::factory()
+            ->hasBookmarks(3)
+            ->create();
+
+
+        $bookmark = $user->bookmarks->first();
+
+        $searchTerm = $bookmark->name;
+
+        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+
+        $response->assertStatus(200);
+        $response->assertSee($bookmark->name);
+        $response->assertSee($bookmark->url);
+        $response->assertSee($bookmark->description);
     }
 }

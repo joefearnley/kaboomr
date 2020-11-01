@@ -16,6 +16,8 @@ Route::resource('bookmarks', BookmarkController::class)->middleware('auth');
 
 Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])->middleware('auth');
 
+Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware('auth');
+
 Route::get('account', [AccountController::class, 'index'])
     ->name('account')
     ->middleware('auth');
@@ -27,8 +29,3 @@ Route::prefix('account')->group(function () {
     Route::patch('/update-email', [AccountController::class, 'updateEmail'])
         ->name('account.update-email');
 });
-
-
-Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware('auth');
-
-// Route::post('search/{term}', [SearchController::class, 'form'])->middleware('auth');

@@ -112,7 +112,13 @@ class User extends Authenticatable
         return $this->bookmarks()
             ->withAnyTag($tag);
     }
-
+    
+    /**
+     * Search user bookmarks
+     *
+     * @param  mixed $term
+     * @return void
+     */
     public function searchBookmarks($term)
     {
         return $this->bookmarks()

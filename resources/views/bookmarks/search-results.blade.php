@@ -7,7 +7,7 @@
             <h4>Search results found for &quot;{{ $term }}&quot;.</h4>
         </div>
         <div class="col-md-4">
-            <form class="form-inline my-2" action="#" method="GET">
+            <form class="form-inline my-2" method="GET">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
