@@ -16,7 +16,7 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-        $bookmarks = Auth::user()->bookmarks->paginate(20);
+        $bookmarks = Auth::user()->bookmarks()->paginate(20);
 
         return view('bookmarks.index', ['bookmarks' => $bookmarks]);
     }
