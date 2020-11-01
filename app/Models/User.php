@@ -122,7 +122,7 @@ class User extends Authenticatable
      */
     public function searchBookmarks($term)
     {
-        return $this->bookmarks()
+        $bookmarks = $this->bookmarks()
             ->join('tagging_tagged', function ($join) {
                 $join->on('bookmarks.id', '=', 'tagging_tagged.taggable_id');
             })
@@ -130,6 +130,50 @@ class User extends Authenticatable
                 $query->whereRaw("UPPER(bookmarks.name) LIKE '%" . strtoupper($term) . "%'")
                     ->orWhereRaw("UPPER(tagging_tagged.tag_name) LIKE '%" . strtoupper($term) . "%'");
             })
-            ->groupBy('bookmarks.name');
+            ->groupBy('bookmarks.name')
+            ->get(['bookmarks.id']);
+
+        return $this->bookmarks()->whereIn('id', $bookmarks->pluck('id'));
+    }
+    
+    /**
+     * Search user's bookmarks by bookmark name
+     *
+     * @param  mixed $term
+     * @return void
+     */
+    public function searchBookmarksByName($term)
+    {
+        $bookmarksByName = $this->bookmarks()
+            ->whereRaw("UPPER(bookmarks.name) LIKE '%" . strtoupper($term) . "%'");
+    }
+    
+    /**
+     * Search user's bookmarks by bookmark tag
+     *
+     * @param  mixed $term
+     * @return void
+     */
+    public function searchBookmarksByTag($term)
+    {
+        $tags = Tag::whereRaw("UPPER(name) LiKE '%" . strtoupper($term) . "%'")
+            ->get()
+            ->map(function ($tag) {
+                return $tag->only(['name']);
+            })
+            ->toArray();
+
+        $tagNames = [];
+        foreach($tags as $tag) {
+            if (!in_array($tag['name'], $tagNames)) {
+                array_push($tagNames, $tag['name']);
+            }
+        }
+
+        echo'<pre>';
+        var_dump($tagNames);
+        die();
+
+        return $this->taggedBookmarks($tagNames);
     }
 }
