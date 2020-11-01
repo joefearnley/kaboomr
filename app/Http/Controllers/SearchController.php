@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function index($term)
     {
-        $bookmarks = Auth::user()->searchBookmarksByTag($term)->paginate(15);
+        $bookmarks = Auth::user()->searchBookmarks($term)->paginate(15);
 
         return view('bookmarks.search-results', [
             'term' => $term,

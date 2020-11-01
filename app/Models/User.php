@@ -123,7 +123,7 @@ class User extends Authenticatable
     public function searchBookmarks($term)
     {
         $bookmarks = $this->bookmarks()
-            ->join('tagging_tagged', function ($join) {
+            ->leftJoin('tagging_tagged', function ($join) {
                 $join->on('bookmarks.id', '=', 'tagging_tagged.taggable_id');
             })
             ->where(function ($query) use ($term) {
@@ -135,7 +135,7 @@ class User extends Authenticatable
 
         return $this->bookmarks()->whereIn('id', $bookmarks->pluck('id'));
     }
-    
+
     /**
      * Search user's bookmarks by bookmark name
      *
@@ -147,7 +147,7 @@ class User extends Authenticatable
         $bookmarksByName = $this->bookmarks()
             ->whereRaw("UPPER(bookmarks.name) LIKE '%" . strtoupper($term) . "%'");
     }
-    
+
     /**
      * Search user's bookmarks by bookmark tag
      *
@@ -169,10 +169,6 @@ class User extends Authenticatable
                 array_push($tagNames, $tag['name']);
             }
         }
-
-        echo'<pre>';
-        var_dump($tagNames);
-        die();
 
         return $this->taggedBookmarks($tagNames);
     }
