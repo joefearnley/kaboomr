@@ -37275,7 +37275,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var confirmBookmarkDeleteButtons = document.querySelectorAll('.confirm-bookmark-delete');
-var deleteBookmarkForm = document.querySelector('#delete-bookmark');
+var deleteBookmarkForm = document.querySelector('.delete-bookmark');
 confirmBookmarkDeleteButtons.forEach(function (el) {
   return el.addEventListener('click', function (event) {
     event.preventDefault();
@@ -37286,6 +37286,16 @@ confirmBookmarkDeleteButtons.forEach(function (el) {
     }
   });
 });
+var searchFormInput = document.querySelector('#search-input');
+var searchFormButton = document.querySelector('#search-button');
+
+if (typeof searchFormInput != 'undefined' && searchFormInput != null) {
+  searchFormButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    var searchTerm = searchFormInput.value;
+    location.href = "/bookmarks/search/".concat(searchTerm);
+  });
+}
 
 /***/ }),
 
