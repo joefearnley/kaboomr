@@ -84,6 +84,7 @@ class BookmarkController extends Controller
 
         Auth::user()->updateBookmark($request, $bookmark);
 
+        $bookmark->untag();
         if ($request->tags) {
             $bookmark->retag(explode(',', $request->tags));
         }

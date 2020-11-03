@@ -269,7 +269,7 @@ class BookmarkTest extends TestCase
         $response->assertSee(\Illuminate\Support\Str::title($tags[1]));
     }
 
-    public function test_cannot_update_bookmark_with_no__method()
+    public function test_cannot_update_bookmark_with_no_put_method()
     {
         $user = User::factory()
             ->hasBookmarks(1)

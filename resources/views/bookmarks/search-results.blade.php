@@ -55,13 +55,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer bg-transparent tags">
-                    @foreach ($bookmark->tags as $tag)
-                        <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2">
-                            {{ $tag->name }}
-                        </a>
-                    @endforeach
-                    </div>
+                    @if (!$bookmark->tags->isEmpty())
+                        <div class="card-footer bg-transparent tags">
+                        @foreach ($bookmark->tags as $tag)
+                            <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2">
+                                {{ $tag->name }}
+                            </a>
+                        @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
