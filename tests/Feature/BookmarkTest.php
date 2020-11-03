@@ -373,6 +373,92 @@ class BookmarkTest extends TestCase
         $this->assertEquals(\Illuminate\Support\Str::title($tags[2]), $bookmarkTags[2]);
     }
 
+    public function test_can_add_tags_to_bookmark()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $this->assertEquals(0, count($bookmark->tagNames()));
+
+        $tags = ['tag1', 'tag2'];
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $bookmark->name,
+            'url' => $bookmark->url,
+            'description' => $bookmark->description,
+            'tags' => implode(',', $tags)
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
+        $bookmark->refresh();
+
+        $this->assertEquals(2, count($bookmark->tagNames()));
+
+        $this->assertDatabaseHas('tagging_tags', [
+            'slug' => $tags[0],
+            'name' => ucfirst($tags[0]),
+        ]);
+
+        $this->assertDatabaseHas('tagging_tags', [
+            'slug' => $tags[1],
+            'name' => ucfirst($tags[1]),
+        ]);
+    }
+
+    public function test_can_remove_tags_from_bookmark()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $tags = ['delete_tag1', 'delete_tag2'];
+        $bookmark->tag($tags);
+        $bookmark->refresh();
+
+        $this->assertEquals(2, count($bookmark->tagNames()));
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $bookmark->name,
+            'url' => $bookmark->url,
+            'description' => $bookmark->description,
+            'tags' => ''
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
+        $bookmark->refresh();
+
+        $this->assertEquals(0, count($bookmark->tagNames()));
+
+        $this->assertDatabaseMissing('tagging_tags', [
+            'slug' => $tags[0],
+            'name' => ucfirst($tags[0]),
+        ]);
+
+        $this->assertDatabaseMissing('tagging_tags', [
+            'slug' => $tags[1],
+            'name' => ucfirst($tags[1]),
+        ]);
+    }
+
     public function test_cannot_delete_bookmark_that_user_does_not_own()
     {
         $user1 = User::factory()
