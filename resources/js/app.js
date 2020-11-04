@@ -16,10 +16,24 @@ confirmBookmarkDeleteButtons.forEach(el => el.addEventListener('click', event =>
 const searchFormInput = document.querySelector('#search-input');
 const searchFormButton = document.querySelector('#search-button');
 
+const search = term => {
+    if (term.trim() !== '') {
+        location.href = `/bookmarks/search/${term}`;
+    }
+};
+
 if(typeof(searchFormInput) != 'undefined' && searchFormInput != null) {
     searchFormButton.addEventListener('click', event => {
         event.preventDefault();
-        const searchTerm = searchFormInput.value;
-        location.href = `/bookmarks/search/${searchTerm}`;
+        search(searchFormInput.value);
+    });
+
+    searchFormInput.addEventListener('keyup', event => {
+        event.preventDefault();
+        if (event.key == 'Enter') {
+            search(searchFormInput.value);
+        }
     });
 }
+
+

@@ -37289,11 +37289,23 @@ confirmBookmarkDeleteButtons.forEach(function (el) {
 var searchFormInput = document.querySelector('#search-input');
 var searchFormButton = document.querySelector('#search-button');
 
+var search = function search(term) {
+  if (term.trim() !== '') {
+    location.href = "/bookmarks/search/".concat(term);
+  }
+};
+
 if (typeof searchFormInput != 'undefined' && searchFormInput != null) {
   searchFormButton.addEventListener('click', function (event) {
     event.preventDefault();
-    var searchTerm = searchFormInput.value;
-    location.href = "/bookmarks/search/".concat(searchTerm);
+    search(searchFormInput.value);
+  });
+  searchFormInput.addEventListener('keyup', function (event) {
+    event.preventDefault();
+
+    if (event.key == 'Enter') {
+      search(searchFormInput.value);
+    }
   });
 }
 
