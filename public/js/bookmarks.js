@@ -93,15 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var bookmarkForm = document.querySelector('#bookmark-form');
-var addTagButton = document.querySelector('#add-tag-button');
-var addTagInput = document.querySelector('#add-tag-input');
-var tagInputs = document.querySelector('.tags-input');
-bookmarkForm.addEventListener('submit', bookmarkFormHandler);
-addTagButton.addEventListener('click', addButtonClickHandler);
-addTagInput.addEventListener('keyup', addInputEnterHandler);
-
 window.onload = function (event) {
+  // dynamically create tag list on form load.
   var tags = document.querySelector('#tags').value;
 
   if (tags) {
@@ -119,8 +112,17 @@ var bookmarkFormHandler = function bookmarkFormHandler(event) {
     return inputTags.push(el.textContent.trim());
   });
   var tagInput = document.querySelector('#tags');
-  tagInput.value = inputTags.join(',');
+  tagInput.value = inputTags.join(','); //... and submit the form
+
   bookmarkForm.submit();
+};
+
+var bookmarkFormKeyPressHandler = function bookmarkFormKeyPressHandler(event) {
+  // prevent enter from submitting the form
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    return;
+  }
 };
 
 var createTagMarkup = function createTagMarkup(tag) {
@@ -133,8 +135,7 @@ var addButtonClickHandler = function addButtonClickHandler(event) {
 };
 
 var addInputEnterHandler = function addInputEnterHandler(event) {
-  event.preventDefault();
-  console.log('salkfjlsajflksfd');
+  event.preventDefault(); // add tag up on select enter
 
   if (event.key === 'Enter') {
     addTagToForm();
@@ -151,6 +152,15 @@ var addTagToForm = function addTagToForm() {
   tagInputs.innerHTML += createTagMarkup(newTag);
   addTagInput.value = '';
 };
+
+var bookmarkForm = document.querySelector('#bookmark-form');
+var addTagButton = document.querySelector('#add-tag-button');
+var addTagInput = document.querySelector('#add-tag-input');
+var tagInputs = document.querySelector('.tags-input');
+bookmarkForm.addEventListener('keypress', bookmarkFormKeyPressHandler);
+bookmarkForm.addEventListener('submit', bookmarkFormHandler);
+addTagButton.addEventListener('click', addButtonClickHandler);
+addTagInput.addEventListener('keyup', addInputEnterHandler);
 
 /***/ }),
 

@@ -1,13 +1,6 @@
-const bookmarkForm = document.querySelector('#bookmark-form');
-const addTagButton = document.querySelector('#add-tag-button');
-const addTagInput = document.querySelector('#add-tag-input');
-const tagInputs = document.querySelector('.tags-input');
-
-bookmarkForm.addEventListener('submit', bookmarkFormHandler);
-addTagButton.addEventListener('click', addButtonClickHandler);
-addTagInput.addEventListener('keyup', addInputEnterHandler);
 
 window.onload = event => {
+    // dynamically create tag list on form load.
     let tags = document.querySelector('#tags').value;
     if (tags) {
         tags.split(',').forEach(tag => {
@@ -27,8 +20,17 @@ const bookmarkFormHandler = event => {
     const tagInput = document.querySelector('#tags');
     tagInput.value = inputTags.join(',');
 
+    //... and submit the form
     bookmarkForm.submit();
 };
+
+const bookmarkFormKeyPressHandler = event => {
+    // prevent enter from submitting the form
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        return;
+    }
+}
 
 const createTagMarkup = tag => {
     return `<span class="badge badge-primary mr-2 mt-2 tag-input">
@@ -46,7 +48,8 @@ const addButtonClickHandler = event => {
 
 const addInputEnterHandler = event => {
     event.preventDefault();
-    console.log('salkfjlsajflksfd');
+
+    // add tag up on select enter
     if (event.key === 'Enter') {
         addTagToForm();
     }
@@ -62,3 +65,13 @@ const addTagToForm = () => {
     tagInputs.innerHTML += createTagMarkup(newTag);
     addTagInput.value = '';
 }
+
+const bookmarkForm = document.querySelector('#bookmark-form');
+const addTagButton = document.querySelector('#add-tag-button');
+const addTagInput = document.querySelector('#add-tag-input');
+const tagInputs = document.querySelector('.tags-input');
+
+bookmarkForm.addEventListener('keypress', bookmarkFormKeyPressHandler);
+bookmarkForm.addEventListener('submit', bookmarkFormHandler);
+addTagButton.addEventListener('click', addButtonClickHandler);
+addTagInput.addEventListener('keyup', addInputEnterHandler);
