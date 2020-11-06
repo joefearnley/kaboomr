@@ -93,6 +93,14 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+var bookmarkForm = document.querySelector('#bookmark-form');
+var addTagButton = document.querySelector('#add-tag-button');
+var addTagInput = document.querySelector('#add-tag-input');
+var tagInputs = document.querySelector('.tags-input');
+bookmarkForm.addEventListener('submit', bookmarkFormHandler);
+addTagButton.addEventListener('click', addButtonClickHandler);
+addTagInput.addEventListener('keyup', addInputEnterHandler);
+
 window.onload = function (event) {
   var tags = document.querySelector('#tags').value;
 
@@ -101,18 +109,6 @@ window.onload = function (event) {
       tagInputs.innerHTML += createTagMarkup(tag);
     });
   }
-};
-
-var addButtonClickHandler = function addButtonClickHandler(event) {
-  event.preventDefault();
-  var newTag = addTagInput.value;
-
-  if (newTag.trim() === '') {
-    return false;
-  }
-
-  tagInputs.innerHTML += createTagMarkup(newTag);
-  addTagInput.value = '';
 };
 
 var bookmarkFormHandler = function bookmarkFormHandler(event) {
@@ -131,12 +127,30 @@ var createTagMarkup = function createTagMarkup(tag) {
   return "<span class=\"badge badge-primary mr-2 mt-2 tag-input\">\n            ".concat(tag, "\n            <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 16 16\" class=\"bi bi-x\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\" onclick=\"this.parentElement.remove();\">\n                <path fill-rule=\"evenodd\" d=\"M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z\"/>\n            </svg>\n        </span>");
 };
 
-var bookmarkForm = document.querySelector('#bookmark-form');
-var addTagButton = document.querySelector('#add-tag-button');
-var addTagInput = document.querySelector('#add-tag-input');
-var tagInputs = document.querySelector('.tags-input');
-bookmarkForm.addEventListener('submit', bookmarkFormHandler);
-addTagButton.addEventListener('click', addButtonClickHandler);
+var addButtonClickHandler = function addButtonClickHandler(event) {
+  event.preventDefault();
+  addTagToForm();
+};
+
+var addInputEnterHandler = function addInputEnterHandler(event) {
+  event.preventDefault();
+  console.log('salkfjlsajflksfd');
+
+  if (event.key === 'Enter') {
+    addTagToForm();
+  }
+};
+
+var addTagToForm = function addTagToForm() {
+  var newTag = addTagInput.value;
+
+  if (newTag.trim() === '') {
+    return false;
+  }
+
+  tagInputs.innerHTML += createTagMarkup(newTag);
+  addTagInput.value = '';
+};
 
 /***/ }),
 

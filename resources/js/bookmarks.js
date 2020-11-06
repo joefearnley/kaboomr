@@ -1,3 +1,12 @@
+const bookmarkForm = document.querySelector('#bookmark-form');
+const addTagButton = document.querySelector('#add-tag-button');
+const addTagInput = document.querySelector('#add-tag-input');
+const tagInputs = document.querySelector('.tags-input');
+
+bookmarkForm.addEventListener('submit', bookmarkFormHandler);
+addTagButton.addEventListener('click', addButtonClickHandler);
+addTagInput.addEventListener('keyup', addInputEnterHandler);
+
 window.onload = event => {
     let tags = document.querySelector('#tags').value;
     if (tags) {
@@ -5,18 +14,6 @@ window.onload = event => {
             tagInputs.innerHTML += createTagMarkup(tag);
         });
     }
-};
-
-const addButtonClickHandler = event => {
-    event.preventDefault();
-    const newTag = addTagInput.value;
-
-    if (newTag.trim() === '') {
-        return false;
-    }
-
-    tagInputs.innerHTML += createTagMarkup(newTag);
-    addTagInput.value = '';
 };
 
 const bookmarkFormHandler = event => {
@@ -42,10 +39,26 @@ const createTagMarkup = tag => {
         </span>`;
 };
 
-const bookmarkForm = document.querySelector('#bookmark-form');
-const addTagButton = document.querySelector('#add-tag-button');
-const addTagInput = document.querySelector('#add-tag-input');
-const tagInputs = document.querySelector('.tags-input');
+const addButtonClickHandler = event => {
+    event.preventDefault();
+    addTagToForm();
+};
 
-bookmarkForm.addEventListener('submit', bookmarkFormHandler);
-addTagButton.addEventListener('click', addButtonClickHandler);
+const addInputEnterHandler = event => {
+    event.preventDefault();
+    console.log('salkfjlsajflksfd');
+    if (event.key === 'Enter') {
+        addTagToForm();
+    }
+};
+
+const addTagToForm = () => {
+    const newTag = addTagInput.value;
+
+    if (newTag.trim() === '') {
+        return false;
+    }
+
+    tagInputs.innerHTML += createTagMarkup(newTag);
+    addTagInput.value = '';
+}
