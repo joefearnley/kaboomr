@@ -100,6 +100,7 @@ class AccountTest extends TestCase
             ->post('/account/update-email', $formData);
 
         $response->assertStatus(302);
+        $response->assertRedirect(route('account'));
 
         $this->assertDatabaseHas('users', [
             'email' => $updatedEmail,

@@ -4,10 +4,6 @@ Guess who's back in the roomr.
 
 ### TODO
 
-Search
-- [ ] search by string
+- [ ] test flash messages
 - [ ] search by tag
 - [ ] search by multiple tags
-
-
-[ ] Pagination

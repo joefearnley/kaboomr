@@ -57,5 +57,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/bookmarks.js') }}" defer></script>
+<script src="{{ asset('js/bookmarkForm.js') }}" defer></script>
 @endsection

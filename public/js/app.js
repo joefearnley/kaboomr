@@ -37282,7 +37282,10 @@ confirmBookmarkDeleteButtons.forEach(function (el) {
     var deleteBookmark = confirm('Are you sure you want to delete this bookmark?');
 
     if (deleteBookmark) {
-      deleteBookmarkForm.submit();
+      // get specific form based on delete button attribute
+      var bookmarkId = event.target.dataset.bookmarkId;
+      var deleteForm = document.querySelector('#delete-bookmark-form-' + bookmarkId);
+      deleteForm.submit();
     }
   });
 });

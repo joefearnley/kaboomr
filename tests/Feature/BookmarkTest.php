@@ -507,4 +507,31 @@ class BookmarkTest extends TestCase
             'id' => $bookmark->id
         ]);
     }
+
+    public function test_delete_button_deletes_correct_bookmark()
+    {
+        $user = User::factory()
+            ->hasBookmarks(3)
+            ->create();
+
+        $bookmark = $user->bookmarks->get(2);
+
+        $this->assertDatabaseHas('bookmarks', [
+            'id' => $bookmark->id,
+            'name' => $bookmark->name
+        ]);
+
+        $formData = [
+            '_method' => 'Delete',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $this->assertDatabaseMissing('bookmarks', [
+            'id' => $bookmark->id
+        ]);
+    }
 }
