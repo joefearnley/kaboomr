@@ -140,4 +140,22 @@ class BookmarkAddTest extends TestCase
             'name' => 'Google',
         ]);
     }
+
+    public function test_create_bookmark_shows_flash_message_on_success()
+    {
+        $user = User::factory()->create();
+
+        $formData = [
+            'name' => 'Google',
+            'url' => 'http://google.com',
+            'description' => 'This is a description',
+            'tags' => 'google,web dev,description,test'
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/bookmarks', $formData);
+
+        $response->assertRedirect(route('bookmarks.index'));
+        $response->assertSessionHas('flash_notification.level', 'success');
+    }
 }
