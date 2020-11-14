@@ -156,6 +156,7 @@ class BookmarkAddTest extends TestCase
             ->post('/bookmarks', $formData);
 
         $response->assertRedirect(route('bookmarks.index'));
-        $response->assertSessionHas('flash_notification.level', 'success');
+
+        $response->assertSessionHas('success');
     }
 }

@@ -50,6 +50,8 @@ class BookmarkController extends Controller
             $bookmark->tag(explode(',', $request->tags));
         }
 
+        $request->session()->flash('success', 'Bookmark successfully been created!');
+
         return redirect('/bookmarks');
     }
 
