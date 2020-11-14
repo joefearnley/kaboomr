@@ -157,6 +157,8 @@ class BookmarkAddTest extends TestCase
 
         $response->assertRedirect(route('bookmarks.index'));
 
-        $response->assertSessionHas('success');
+        $response->assertSessionHas([
+            'success' => 'Bookmark successfully been created!'
+        ]);
     }
 }

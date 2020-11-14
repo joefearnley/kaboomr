@@ -55,6 +55,8 @@ class BookmarkDeleteTest extends TestCase
             ->post('/bookmarks/' . $bookmark->id, $formData);
 
         $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
         $this->assertDatabaseMissing('bookmarks', [
             'id' => $bookmark->id
         ]);
@@ -82,8 +84,42 @@ class BookmarkDeleteTest extends TestCase
             ->post('/bookmarks/' . $bookmark->id, $formData);
 
         $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
         $this->assertDatabaseMissing('bookmarks', [
             'id' => $bookmark->id
+        ]);
+    }
+
+    public function test_delete_bookmark_shows_flash_message_on_success()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $this->assertDatabaseHas('bookmarks', [
+            'id' => $bookmark->id
+        ]);
+
+        $formData = [
+            '_method' => 'Delete',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
+        $this->assertDatabaseMissing('bookmarks', [
+            'id' => $bookmark->id
+        ]);
+
+        $response->assertSessionHas([
+            'success' => 'Bookmark successfully been deleted!'
         ]);
     }
 }

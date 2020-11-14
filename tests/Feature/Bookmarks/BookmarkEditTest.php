@@ -241,4 +241,30 @@ class BookmarkUpdateTest extends TestCase
             'name' => ucfirst($tags[1]),
         ]);
     }
+
+    public function test_update_bookmark_shows_flash_message_on_success()
+    {
+        $user = User::factory()
+            ->hasBookmarks(1)
+            ->create();
+
+        $bookmark = $user->bookmarks->first();
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => 'This is an updated bookmark',
+            'url' => 'https://lmgtfy.app/',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/bookmarks/' . $bookmark->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('bookmarks.index'));
+
+        $response->assertSessionHas([
+            'success' => 'Bookmark successfully been updated!'
+        ]);
+    }
 }

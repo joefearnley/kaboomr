@@ -92,19 +92,24 @@ class BookmarkController extends Controller
             $bookmark->retag(explode(',', $request->tags));
         }
 
+        $request->session()->flash('success', 'Bookmark successfully been updated!');
+
         return redirect('/bookmarks');
     }
 
     /**
      * Delete a bookmark.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Bookmark  $bookmark
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bookmark $bookmark)
+    public function destroy(Request $request, Bookmark $bookmark)
     {
         if (Auth::user()->ownsBookmark($bookmark)) {
             Auth::user()->deleteBookmark($bookmark);
+
+            $request->session()->flash('success', 'Bookmark successfully been deleted!');
 
             return redirect('/bookmarks');
         }

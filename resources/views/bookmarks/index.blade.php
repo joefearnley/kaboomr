@@ -7,7 +7,7 @@
         <div class="col-md-10 offset-md-1 my-2">
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
-                <strong>{{ message }}</strong>
+                <strong>{{ $message }}</strong>
             </div>
         </div>
     @endif
