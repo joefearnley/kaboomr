@@ -33,7 +33,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
     Route::get('/', [AdminController::class, 'index'])
-        ->name('admin.index');
+        ->name('admin.dashboard');
 
     Route::resource('accounts', UserAccountAdminController::class);
 });
