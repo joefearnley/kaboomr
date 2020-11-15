@@ -41,7 +41,7 @@ class AdminDashboardTest extends TestCase
         $response->assertViewIs('admin.dashboard');
 
         $response->assertSee('Admin Dashboard');
-        $response->assertSee('Users');
-        $response->assertSee('Add User');
+        $response->assertSee('User Accounts');
+        $response->assertSee('Create User Account');
     }
 }
