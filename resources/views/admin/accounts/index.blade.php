@@ -4,6 +4,16 @@
 <div class="container">
     <div class="row justify-content-center mt-4 align-self-center">
         <div class="col-md-10 mt-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item">User Accounts</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4 align-self-center">
+        <div class="col-md-10 mt-4">
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
