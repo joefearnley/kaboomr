@@ -7,11 +7,11 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-class AccountAdminTest extends TestCase
+class UserAccountAdminTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_non_authenticated_non_admin_user_cannot_access_account_admin_list_and_is_redirected_to_login_page()
+    public function test_non_authenticated_non_admin_user_cannot_access_user_account_admin_list()
     {
         $response = $this->get('/admin/accounts');
 
@@ -19,7 +19,7 @@ class AccountAdminTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_authenticated_non_admin_user_cannot_access_account_admin_list_and_is_redirected_to_bookmark_list()
+    public function test_authenticated_non_admin_user_cannot_access_user_account_admin_list()
     {
         $user = User::factory()
             ->hasBookmarks(2)
@@ -31,7 +31,7 @@ class AccountAdminTest extends TestCase
         $response->assertRedirect(route('bookmarks.index'));
     }
 
-    public function test_admin_user_can_access_user_admin_list()
+    public function test_admin_user_can_access_user_acount_admin_list()
     {
         $user = User::factory()->create([
             'is_admin' => 1
@@ -41,5 +41,24 @@ class AccountAdminTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.accounts.index');
+        $response->assertSee('User Accounts');
+    }
+
+    public function test_admin_user_can_see_other_user_accounts()
+    {
+        $user = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $nonAdminUsers = User::factory()->count(3)->create();
+
+        $response = $this->actingAs($user)->get('/admin/accounts');
+
+        $response->assertStatus(200);
+
+        foreach($nonAdminUsers as $nonAdminUser) {
+            $response->assertSee($nonAdminUser->name);
+            $response->assertSee($nonAdminUser->email);
+        }
     }
 }
