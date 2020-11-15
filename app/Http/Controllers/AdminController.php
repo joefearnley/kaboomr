@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class AdminUserController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
         $users = User::paginate(15);
 
-        return view('admin.users', ['users' => $users]);
+        return view('admin.dashboard', ['users' => $users]);
     }
 }
