@@ -19,7 +19,7 @@ class AdminDashboardTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_authenticated_non_admin_user_cannot_access_admin_dashboard_and_is_redirected_to_bookmark_list()
+    public function test_authenticated_non_admin_user_cannot_access_admin_dashboard()
     {
         $user = User::factory()->create();
 
