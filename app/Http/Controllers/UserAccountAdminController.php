@@ -16,7 +16,7 @@ class UserAccountAdminController extends Controller
     {
         $users = User::paginate(15);
 
-        return view('admin.accounts.index', ['users' => $users]);
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserAccountAdminController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.accounts.edit', ['user' => $user]);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**

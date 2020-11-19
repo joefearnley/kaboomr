@@ -35,5 +35,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
-    Route::resource('accounts', UserAccountAdminController::class);
+    Route::resource('users', UserAccountAdminController::class);
 });

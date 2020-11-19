@@ -15,22 +15,41 @@ class UserAccountAdminEditTest extends TestCase
     {
         $nonAdminUser = User::factory()->create();
 
-        $response = $this->get('/admin/accounts/edit/' . $nonAdminUser->id);
+        $response = $this->get('/admin/users/' . $nonAdminUser->id . '/edit/');
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
     }
 
-
-    public function test_authenticated_non_admin_user_cannot_access_user_account_admin_list()
+    public function test_authenticated_non_admin_user_cannot_access_edit_user_account_form()
     {
-        $nonAdminUsers = User::factory()->create();
+        $nonAdminUser = User::factory()->create();
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/admin/accounts/edit/' . $nonAdminUser->id);
+        $response = $this
+            ->actingAs($user)
+            ->get('/admin/users/' . $nonAdminUser->id .'/edit/');
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('bookmarks.index'));
+            $response->assertStatus(302);
+            $response->assertRedirect(route('bookmarks.index'));
+    }
+
+    public function test_admin_user_can_access_user_account_admin_list()
+    {
+        $nonAdminUser = User::factory()->create();
+
+        $user = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $response = $this
+            ->actingAs($user)
+            ->get('/admin/users/' . $nonAdminUser->id .'/edit/');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.users.edit');
+        $response->assertSee($nonAdminUser->name);
+        $response->assertSee($nonAdminUser->email);
     }
 }

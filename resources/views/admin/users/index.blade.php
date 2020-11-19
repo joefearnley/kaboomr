@@ -43,7 +43,7 @@
                                 <a href="/admin/users/{{ $user->id }}/delete/" class="btn btn-danger confirm-user-delete" data-user-id="{{ $user->id }}">
                                     Delete
                                 </a>
-                                <form id="delete-user-form-{{ $user->id }}" class="delete-user-form" action="{{ route('accounts.destroy', $user) }}" method="post">
+                                <form id="delete-user-form-{{ $user->id }}" class="delete-user-form" action="{{ route('users.destroy', $user) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                 </form>

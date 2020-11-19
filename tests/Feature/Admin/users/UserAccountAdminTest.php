@@ -13,7 +13,7 @@ class UserAccountAdminTest extends TestCase
 
     public function test_non_authenticated_non_admin_user_cannot_access_user_account_admin_list()
     {
-        $response = $this->get('/admin/accounts');
+        $response = $this->get('/admin/users');
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -25,7 +25,7 @@ class UserAccountAdminTest extends TestCase
             ->hasBookmarks(2)
             ->create();
 
-        $response = $this->actingAs($user)->get('/admin/accounts');
+        $response = $this->actingAs($user)->get('/admin/users');
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -37,10 +37,10 @@ class UserAccountAdminTest extends TestCase
             'is_admin' => 1
         ]);
 
-        $response = $this->actingAs($user)->get('/admin/accounts');
+        $response = $this->actingAs($user)->get('/admin/users');
 
         $response->assertStatus(200);
-        $response->assertViewIs('admin.accounts.index');
+        $response->assertViewIs('admin.users.index');
         $response->assertSee('User Accounts');
     }
 
@@ -52,7 +52,7 @@ class UserAccountAdminTest extends TestCase
 
         $nonAdminUsers = User::factory()->count(3)->create();
 
-        $response = $this->actingAs($user)->get('/admin/accounts');
+        $response = $this->actingAs($user)->get('/admin/users');
 
         $response->assertStatus(200);
 

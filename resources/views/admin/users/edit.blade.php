@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center mt-4 align-self-center">
         <div class="col-md-8 mt-4">
-            <form id="edit-user-form" action="{{ route('admin.account.update', $user) }}" method="post">
+            <form id="edit-user-form" action="{{ route('users.update', $user) }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -25,14 +25,16 @@
                         </span>
                     @enderror
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" name="is_admin" class="form-check-input" id="is-admin">
-                    <label class="form-check-label" for="is-admin">Administrator?</label>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="checkbox" name="is_admin" class="form-check-input" id="is-admin">
+                        <label class="form-check-label" for="is-admin">Administrator?</label>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-secondary mr-2">
                     Save
                 </button>
-                <a href="{{ route('admin.accounts.index') }}" class="btn btn-primary">
+                <a href="{{ route('users.index') }}" class="btn btn-primary">
                     Cancel
                 </a>
             </form>
