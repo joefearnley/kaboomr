@@ -29,12 +29,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8 my-auto">
-                            <a href="/admin/accounts">
+                            <a href="{{ route('users.index') }}">
                                 <h5>User Accounts</h5>
                             </a>
                         </div>
                         <div class="col-md-4 justify-content-center my-auto text-center">
-                            <a href="/admin/accounts/create" class="btn btn-secondary mr-3">
+                            <a href="{{ route ('users.create') }}" class="btn btn-secondary mr-3">
                                 Create User Account
                             </a>
                         </div>

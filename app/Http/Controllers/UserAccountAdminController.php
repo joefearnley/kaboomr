@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserAccountAdminController extends Controller
 {
@@ -39,7 +40,17 @@ class UserAccountAdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:150',
+            'email' => 'required|email',
+        ]);
+
+        Auth::user()->updateBookmark($request, $bookmark);
+
+
+        $request->session()->flash('success', 'Bookmark successfully been updated!');
+
+        return redirect('/bookmarks');
     }
 
     /**

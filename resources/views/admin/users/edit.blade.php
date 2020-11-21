@@ -1,7 +1,26 @@
 @extends('layouts.app')
+<?php
 
+// echo'<pre>';
+// var_dump($errors->has('name') );
+// die();
+
+?>
 @section('content')
 <div class="container">
+@if ($errors->any())
+<div class="row justify-content-center mt-4 align-self-center">
+        <div class="col-md-8 mt-4">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+@endif
     <div class="row justify-content-center mt-4 align-self-center">
         <div class="col-md-8 mt-4">
             <form id="edit-user-form" action="{{ route('users.update', $user) }}" method="post">
@@ -9,7 +28,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" value="{{ $user->name }}" name="name" class="form-control" id="name" aria-describedby="nameHelp" required>
+                    <input type="text" value="{{ $user->name }}" name="name" class="form-control" id="name" aria-describedby="nameHelp">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -18,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" value="{{ $user->email }}" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                    <input type="email" value="{{ $user->email }}" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

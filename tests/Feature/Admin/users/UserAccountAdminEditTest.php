@@ -52,4 +52,46 @@ class UserAccountAdminEditTest extends TestCase
         $response->assertSee($nonAdminUser->name);
         $response->assertSee($nonAdminUser->email);
     }
+
+    public function test_cannot_update_user_account_with_no_put_method()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $formData = [
+            'name' => $user->name,
+            'email' => $user->email
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(405);
+    }
+
+    public function test_cannot_update_user_account_with_no_name()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => '',
+            'email' => $user->url,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors('name');
+    }
 }
