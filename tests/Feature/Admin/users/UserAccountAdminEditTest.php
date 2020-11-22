@@ -91,7 +91,17 @@ class UserAccountAdminEditTest extends TestCase
             ->actingAs($user)
             ->post('/admin/users/' . $user->id, $formData);
 
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('name');
+        dd($response->getContent());
+
+        
+        $response->assertStatus(200);
+
+        // $errors = session('errors');
+
+        // echo'<pre>';
+        // var_dump($errors);
+        // die();
+
+//        $response->assertSessionHasErrors();
     }
 }

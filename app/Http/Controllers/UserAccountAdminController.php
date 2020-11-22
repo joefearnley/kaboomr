@@ -32,7 +32,7 @@ class UserAccountAdminController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the user record.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
@@ -40,17 +40,22 @@ class UserAccountAdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|max:150',
-            'email' => 'required|email',
-        ]);
 
-        Auth::user()->updateBookmark($request, $bookmark);
+        echo'<pre>';
+        var_dump($request->all());
+        die();
+
+        // $request->validate([
+        //     'name' => 'required|max:150',
+        //     'email' => 'required|email',
+        // ]);
+
+        // Auth::user()->updateBookmark($request, $bookmark);
 
 
-        $request->session()->flash('success', 'Bookmark successfully been updated!');
+        // $request->session()->flash('success', 'Bookmark successfully been updated!');
 
-        return redirect('/bookmarks');
+        // return redirect('/bookmarks');
     }
 
     /**
