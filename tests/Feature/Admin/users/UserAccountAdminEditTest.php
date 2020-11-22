@@ -175,4 +175,32 @@ class UserAccountAdminEditTest extends TestCase
             'success' => 'User successfully updated!'
         ]);
     }
+
+    public function test_can_set_user_as_admin()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => 'on'
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+
+        $this->assertDatabaseHas('users', [
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => 'on'
+        ]);
+    }
 }
