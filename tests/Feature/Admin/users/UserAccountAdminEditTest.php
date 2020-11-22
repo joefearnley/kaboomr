@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Admin\Users;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -80,6 +80,9 @@ class UserAccountAdminEditTest extends TestCase
         ]);
 
         $user = User::factory()->create();
+
+
+        dd($user);
 
         $formData = [
             '_method' => 'PUT',

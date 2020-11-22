@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Bookmarks;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-class BookmarkUpdateTest extends TestCase
+class BookmarkEditTest extends TestCase
 {
     use RefreshDatabase;
 
