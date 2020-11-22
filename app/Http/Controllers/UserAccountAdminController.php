@@ -40,22 +40,19 @@ class UserAccountAdminController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $request->validate([
+            'name' => 'required|max:150',
+            'email' => 'required|email',
+        ]);
 
-        echo'<pre>';
-        var_dump($request->all());
-        die();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
 
-        // $request->validate([
-        //     'name' => 'required|max:150',
-        //     'email' => 'required|email',
-        // ]);
+        $request->session()->flash('success', 'User successfully updated!');
 
-        // Auth::user()->updateBookmark($request, $bookmark);
-
-
-        // $request->session()->flash('success', 'Bookmark successfully been updated!');
-
-        // return redirect('/bookmarks');
+        return redirect(route('users.index'));
     }
 
     /**

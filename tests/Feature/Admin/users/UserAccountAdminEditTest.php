@@ -81,9 +81,6 @@ class UserAccountAdminEditTest extends TestCase
 
         $user = User::factory()->create();
 
-
-        dd($user);
-
         $formData = [
             '_method' => 'PUT',
             'name' => '',
@@ -91,20 +88,91 @@ class UserAccountAdminEditTest extends TestCase
         ];
 
         $response = $this
-            ->actingAs($user)
+            ->actingAs($admin)
             ->post('/admin/users/' . $user->id, $formData);
 
-        dd($response->getContent());
+        $response->assertStatus(302);
 
-        
-        $response->assertStatus(200);
+       $response->assertSessionHasErrors('name');
+    }
 
-        // $errors = session('errors');
+    public function test_cannot_update_user_account_with_no_email()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
 
-        // echo'<pre>';
-        // var_dump($errors);
-        // die();
+        $user = User::factory()->create();
 
-//        $response->assertSessionHasErrors();
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $user->name,
+            'email' => '',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+
+       $response->assertSessionHasErrors('email');
+    }
+
+    public function test_can_edit_user()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $updatedUserName = 'John Doe';
+        $updatedUserEmail = 'john.doe123@gmail.com';
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $updatedUserName,
+            'email' => $updatedUserEmail,
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+
+        $this->assertDatabaseHas('users', [
+            'name' => $updatedUserName,
+            'email' => $updatedUserEmail,
+        ]);
+    }
+
+    public function test_update_user_shows_flash_message_on_success()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $updatedUserName = 'John Doe';
+        $updatedUserEmail = 'john.doe123@gmail.com';
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $updatedUserName,
+            'email' => $updatedUserEmail,
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas([
+            'success' => 'User successfully updated!'
+        ]);
     }
 }
