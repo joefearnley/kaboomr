@@ -47,7 +47,8 @@ class UserAccountAdminController extends Controller
 
         $user->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'is_admin' => $request->is_admin === 'on'
         ]);
 
         $request->session()->flash('success', 'User successfully updated!');

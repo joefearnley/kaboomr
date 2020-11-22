@@ -200,7 +200,7 @@ class UserAccountAdminEditTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => $user->name,
             'email' => $user->email,
-            'is_admin' => 'on'
+            'is_admin' => '1'
         ]);
     }
 }

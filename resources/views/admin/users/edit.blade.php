@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <div class="form-check">
-                        <input type="checkbox" name="is_admin" class="form-check-input" id="is-admin">
+                        <input type="checkbox" name="is_admin" class="form-check-input" id="is-admin" {{ $user->is_admin ? 'checked="checked"' : '' }}>
                         <label class="form-check-label" for="is-admin">Administrator?</label>
                     </div>
                 </div>
