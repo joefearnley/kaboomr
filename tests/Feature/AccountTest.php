@@ -70,6 +70,30 @@ class AccountTest extends TestCase
         ]);
     }
 
+    public function test_updating_name_shows_flash_message_on_success()
+    {
+        $user = User::factory()->create();
+        $updateName = 'John Doe';
+
+        $formData = [
+            '_method' => 'PATCH',
+            'name' => $updateName,
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/account/update-name', $formData);
+
+        $response->assertStatus(302);
+
+        $this->assertDatabaseHas('users', [
+            'name' => $updateName,
+        ]);
+
+        $response->assertSessionHas([
+            'success' => 'Your account\'s Name has been updated!'
+        ]);
+    }
+
     public function test_updating_email_requires_form_fields()
     {
         $user = User::factory()->create();
@@ -107,4 +131,28 @@ class AccountTest extends TestCase
         ]);
     }
 
+    public function test_change_account_email_shows_flash_message_on_success()
+    {
+        $user = User::factory()->create();
+        $updatedEmail = 'john.doe123@gmail.com';
+
+        $formData = [
+            '_method' => 'PATCH',
+            'email' => $updatedEmail,
+        ];
+
+        $response = $this->actingAs($user)
+            ->post('/account/update-email', $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('account'));
+
+        $this->assertDatabaseHas('users', [
+            'email' => $updatedEmail,
+        ]);
+
+        $response->assertSessionHas([
+            'success' => 'Your account\'s Email has been updated!'
+        ]);
+    }
 }

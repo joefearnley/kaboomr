@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserAccountController extends Controller
 {
+    /**
+     * Show user account update forms.
+     *
+     * @return void
+     */
     public function index()
     {
         $user = Auth::user();
@@ -14,6 +20,12 @@ class UserAccountController extends Controller
         return view('account.index', ['user' => $user]);
     }
 
+    /**
+     * Update an account's name.
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function updateName(Request $request)
     {
         $request->validate([
@@ -25,11 +37,19 @@ class UserAccountController extends Controller
         $user->name = $request->name;
         $user->save();
 
-        $request->session()->flash('success', 'Name has been updated!');
+        // Mail::to($user->email)->send(new NewUserNotification($user));
+
+        $request->session()->flash('success', 'Your account\'s Name has been updated!');
 
         return redirect('/account');
     }
 
+    /**
+     * Update an account email address.
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function updateEmail(Request $request)
     {
         $request->validate([
@@ -40,7 +60,7 @@ class UserAccountController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        $request->session()->flash('success', 'Email has been updated!');
+        $request->session()->flash('success', 'Your account\'s Email has been updated!');
 
         return redirect('/account');
     }
