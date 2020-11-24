@@ -24,7 +24,7 @@ class BookmarkDeleteTest extends TestCase
         $bookmarkToDeleteId = $user2->bookmarks->first()->id;
 
         $formData = [
-            '_method' => 'Delete',
+            '_method' => 'DELETE',
         ];
 
         $response = $this
@@ -47,7 +47,7 @@ class BookmarkDeleteTest extends TestCase
         ]);
 
         $formData = [
-            '_method' => 'Delete',
+            '_method' => 'DELETE',
         ];
 
         $response = $this
@@ -76,7 +76,7 @@ class BookmarkDeleteTest extends TestCase
         ]);
 
         $formData = [
-            '_method' => 'Delete',
+            '_method' => 'DELETE',
         ];
 
         $response = $this
@@ -104,7 +104,7 @@ class BookmarkDeleteTest extends TestCase
         ]);
 
         $formData = [
-            '_method' => 'Delete',
+            '_method' => 'DELETE',
         ];
 
         $response = $this

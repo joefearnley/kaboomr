@@ -13,9 +13,9 @@ class UserAccountAdminEditTest extends TestCase
 
     public function test_cannot_access_edit_user_account_form_when_not_authenticated()
     {
-        $nonAdminUser = User::factory()->create();
+        $user = User::factory()->create();
 
-        $response = $this->get('/admin/users/' . $nonAdminUser->id . '/edit/');
+        $response = $this->get('/admin/users/' . $user->id . '/edit/');
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -23,13 +23,13 @@ class UserAccountAdminEditTest extends TestCase
 
     public function test_authenticated_non_admin_user_cannot_access_edit_user_account_form()
     {
-        $nonAdminUser = User::factory()->create();
+        $admin = User::factory()->create();
 
         $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
-            ->get('/admin/users/' . $nonAdminUser->id .'/edit/');
+            ->get('/admin/users/' . $user->id .'/edit/');
 
             $response->assertStatus(302);
             $response->assertRedirect(route('bookmarks.index'));
@@ -37,20 +37,20 @@ class UserAccountAdminEditTest extends TestCase
 
     public function test_admin_user_can_access_user_account_admin_list()
     {
-        $nonAdminUser = User::factory()->create();
-
-        $user = User::factory()->create([
+        $admin = User::factory()->create([
             'is_admin' => 1
         ]);
 
+        $user = User::factory()->create();
+
         $response = $this
-            ->actingAs($user)
-            ->get('/admin/users/' . $nonAdminUser->id .'/edit/');
+            ->actingAs($admin)
+            ->get('/admin/users/' . $user->id .'/edit/');
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.users.edit');
-        $response->assertSee($nonAdminUser->name);
-        $response->assertSee($nonAdminUser->email);
+        $response->assertSee($user->name);
+        $response->assertSee($user->email);
     }
 
     public function test_cannot_update_user_account_with_no_put_method()
@@ -196,6 +196,7 @@ class UserAccountAdminEditTest extends TestCase
             ->post('/admin/users/' . $user->id, $formData);
 
         $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
             'name' => $user->name,
