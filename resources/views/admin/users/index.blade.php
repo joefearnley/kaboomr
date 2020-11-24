@@ -40,7 +40,7 @@
                                 <a href="/admin/users/{{ $user->id }}/edit/" class="btn btn-secondary mr-3"  data-user-id="{{ $user->id }}">
                                     Edit
                                 </a>
-                                <a href="/admin/users/{{ $user->id }}/delete/" class="btn btn-danger confirm-user-delete" data-user-id="{{ $user->id }}">
+                                <a href="/admin/users/{{ $user->id }}" class="btn btn-danger confirm-user-delete" data-user-id="{{ $user->id }}">
                                     Delete
                                 </a>
                                 <form id="delete-user-form-{{ $user->id }}" class="delete-user-form" action="{{ route('users.destroy', $user) }}" method="post">

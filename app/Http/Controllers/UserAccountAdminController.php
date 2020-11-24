@@ -62,8 +62,12 @@ class UserAccountAdminController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        //
+        $user->delete();
+
+        $request->session()->flash('success', 'User successfully deleted!');
+
+        return redirect(route('users.index'));
     }
 }
