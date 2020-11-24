@@ -28,6 +28,7 @@ class NewUserNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.newuser');
+        return $this->from(config('MAIL_FROM_ADDRESS'))
+            ->view('emails.newuser');
     }
 }
