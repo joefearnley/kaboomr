@@ -37275,7 +37275,6 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var confirmBookmarkDeleteButtons = document.querySelectorAll('.confirm-bookmark-delete');
-var deleteBookmarkForm = document.querySelector('.delete-bookmark');
 confirmBookmarkDeleteButtons.forEach(function (el) {
   return el.addEventListener('click', function (event) {
     event.preventDefault();
@@ -37285,6 +37284,20 @@ confirmBookmarkDeleteButtons.forEach(function (el) {
       // get specific form based on delete button attribute
       var bookmarkId = event.target.dataset.bookmarkId;
       var deleteForm = document.querySelector('#delete-bookmark-form-' + bookmarkId);
+      deleteForm.submit();
+    }
+  });
+});
+var confirmUserDeleteButtons = document.querySelectorAll('.confirm-user-delete');
+confirmUserDeleteButtons.forEach(function (el) {
+  return el.addEventListener('click', function (event) {
+    event.preventDefault();
+    var deleteuser = confirm('Are you sure you want to delete this user?');
+
+    if (deleteuser) {
+      // get specific form based on delete button attribute
+      var userId = event.target.dataset.userId;
+      var deleteForm = document.querySelector('#delete-user-form-' + userId);
       deleteForm.submit();
     }
   });

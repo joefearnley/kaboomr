@@ -1,7 +1,6 @@
 require('./bootstrap');
 
 const confirmBookmarkDeleteButtons = document.querySelectorAll('.confirm-bookmark-delete');
-const deleteBookmarkForm = document.querySelector('.delete-bookmark');
 
 confirmBookmarkDeleteButtons.forEach(el => el.addEventListener('click', event => {
     event.preventDefault();
@@ -11,6 +10,22 @@ confirmBookmarkDeleteButtons.forEach(el => el.addEventListener('click', event =>
         // get specific form based on delete button attribute
         const bookmarkId = event.target.dataset.bookmarkId;
         const deleteForm = document.querySelector('#delete-bookmark-form-' + bookmarkId);
+
+        deleteForm.submit();
+    }
+}));
+
+
+const confirmUserDeleteButtons = document.querySelectorAll('.confirm-user-delete');
+
+confirmUserDeleteButtons.forEach(el => el.addEventListener('click', event => {
+    event.preventDefault();
+    const deleteuser = confirm('Are you sure you want to delete this user?');
+
+    if (deleteuser) {
+        // get specific form based on delete button attribute
+        const userId = event.target.dataset.userId;
+        const deleteForm = document.querySelector('#delete-user-form-' + userId);
 
         deleteForm.submit();
     }
