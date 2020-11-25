@@ -6,20 +6,22 @@ This is a bookmarking service written using [Laravel](https://laravel.com) and [
 
 ## Installation
 
-First set up a mysql database and update your .env file with the correct credentials.
-
-Clone this repository
+- Clone this repository
 ```bash
 git clone https://github.com/joefearnley/kaboomr.git
 cd kaboomr
 ```
 
-Install dependencies
+- Set up a mysql database and update your `.env` file with the correct credentials.
+
+- Also, add the correct email settings in your `.env` file
+
+- Install dependencies
 ```bash
 composer install
 ```
 
-Migrate the data
+- Migrate the data
 ```bash
 php artisan migrate
 ```
