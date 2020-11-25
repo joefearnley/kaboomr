@@ -2,14 +2,16 @@
 
 namespace Tests\Feature\Mail;
 
+
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Mail\UserAccountUpdateNotification;
+use App\Mail\UserAccountRegistrationNotification;
 
-class UserAccountUpdateEmailTest extends TestCase
+class UserAccountRegistrationNoficationTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,9 +21,9 @@ class UserAccountUpdateEmailTest extends TestCase
 
         Mail::fake();
 
-        Mail::to($user->email)->send(new UserAccountUpdateNotification($user));
+        Mail::to($user->email)->send(new UserAccountRegistrationNotification($user));
 
-        Mail::assertSent(UserAccountUpdateNotification::class, function ($mail) use ($user) {
+        Mail::assertSent(UserAccountRegistrationNotification::class, function ($mail) use ($user) {
             return $mail->hasTo($user->email);
         });
     }

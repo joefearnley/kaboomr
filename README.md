@@ -37,4 +37,4 @@ This application is deployed to [Heroku](https://heroku.com), which you can foll
 
 [Getting Started with Laravel on Heroku](https://devcenter.heroku.com/articles/getting-started-with-laravel)
 
-Of course it can also be deploy to any server a Laravel application can be.
+Of course it can also be deploy to any server a Laravel application can be deployed to.
