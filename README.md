@@ -33,4 +33,8 @@ php artisan test
 ```
 
 ## Deploying
-This application is deployed to [Heroku](https://heroku.com).
+This application is deployed to [Heroku](https://heroku.com), which you can follow the instruction here on how to do that:
+
+[Getting Started with Laravel on Heroku](https://devcenter.heroku.com/articles/getting-started-with-laravel)
+
+Of course it can also be deploy to any server a Laravel application can be.
