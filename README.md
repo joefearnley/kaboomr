@@ -26,6 +26,11 @@ composer install
 php artisan migrate
 ```
 
+- Run the server
+```bash
+php artisan serve
+```
+
 ## Testing
 This project has a good amount of tests around it. To run those tests use the artisan command. 
 ```bash
