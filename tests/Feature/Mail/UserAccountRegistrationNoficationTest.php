@@ -13,7 +13,7 @@ class UserAccountRegistrationNoficationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_update_email_is_sent()
+    public function test_user_registartion_email_is_sent()
     {
         $user = User::factory()->create();
 

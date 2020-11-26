@@ -3,8 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>{{ config('APP_NAME', 'Kaboomr')}} User Registration Confirmation</title>
-
+<title>{{ env('APP_NAME', 'Kaboomr') }} User Registration Confirmation</title>
 
 <style type="text/css">
 img {
@@ -67,13 +66,13 @@ background-color: #f6f6f6;
                     Hello there &mdash;
                   </td>
                 </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                    Thanks for signing up for <strong>{{ config('APP_NAME', 'Kaboomr') }}</strong>.
+                    Thanks for signing up for <strong>{{ env('APP_NAME', 'Kaboomrwqefwqefwef') }}</strong>.
                   </td>
                 </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                    <a href="{{ config('APP_URL') }}/login" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #6c757d; margin: 0; border-color: #6c757d; border-style: solid; border-width: 10px 20px;">Log in to get started</a>
+                    <a href="{{ env('APP_URL', 'https://kaboomr.herokuapp.com') }}/login" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #6c757d; margin: 0; border-color: #6c757d; border-style: solid; border-width: 10px 20px;">Log in to get started</a>
                   </td>
                 </tr><tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                    &mdash; The {{ config('APP_NAME', 'Kaboomr') }} Team
+                    &mdash; The {{ env('APP_NAME', 'Kaboomr') }} Team
                   </td>
                 </tr></table></td>
           </tr></table><div class="footer" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;">

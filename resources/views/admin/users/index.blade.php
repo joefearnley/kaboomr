@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4 align-self-center">
-        <div class="col-md-10 mt-4">
+        <div class="col-md-10">
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
