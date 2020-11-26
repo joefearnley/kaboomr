@@ -11,6 +11,22 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_user_defaults_to_active()
+    {
+        $user = User::factory()->create();
+
+        $this->assertTrue($user->isActive());
+    }
+
+    public function test_user_can_be_inactive()
+    {
+        $user = User::factory()->create([
+            'is_active' => false
+        ]);
+
+        $this->assertFalse($user->isActive());
+    }
+
     public function test_user_defaults_to_non_admin()
     {
         $user = User::factory()->create();
