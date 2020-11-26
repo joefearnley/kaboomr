@@ -176,6 +176,15 @@ class UserAccountAdminEditTest extends TestCase
         ]);
     }
 
+    public function edit_user_account_form_shows_admin_field()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+    }
+
     public function test_can_set_user_as_admin()
     {
         $admin = User::factory()->create([
@@ -203,5 +212,16 @@ class UserAccountAdminEditTest extends TestCase
             'email' => $user->email,
             'is_admin' => '1'
         ]);
+    }
+
+    public function edit_user_account_form_shows_active_field()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+
     }
 }
