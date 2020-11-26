@@ -176,13 +176,21 @@ class UserAccountAdminEditTest extends TestCase
         ]);
     }
 
-    public function edit_user_account_form_shows_admin_field()
+    public function test_dit_user_account_form_shows_admin_field()
     {
         $admin = User::factory()->create([
             'is_admin' => 1
         ]);
 
         $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($admin)
+            ->get('/admin/users/' . $user->id .'/edit/');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.users.edit');
+        $response->assertSee('Administrator?');
     }
 
     public function test_can_set_user_as_admin()
@@ -214,7 +222,7 @@ class UserAccountAdminEditTest extends TestCase
         ]);
     }
 
-    public function edit_user_account_form_shows_active_field()
+    public function test_edit_user_account_form_shows_active_field()
     {
         $admin = User::factory()->create([
             'is_admin' => 1
@@ -222,6 +230,91 @@ class UserAccountAdminEditTest extends TestCase
 
         $user = User::factory()->create();
 
+        $response = $this
+            ->actingAs($admin)
+            ->get('/admin/users/' . $user->id .'/edit/');
 
+        $response->assertStatus(200);
+        $response->assertViewIs('admin.users.edit');
+        $response->assertSee('Active?');
+    }
+
+    public function test_can_activate_user()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create([
+            'is_active' => 0
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => '0',
+            'is_active' => '0',
+        ]);
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_active' => 'on',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => '0',
+            'is_active' => '1',
+        ]);
+    }
+
+    public function test_can_deactivate_user()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $user = User::factory()->create();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => '0',
+            'is_active' => '1',
+        ]);
+
+        $formData = [
+            '_method' => 'PUT',
+            'name' => $user->name,
+            'email' => $user->email,
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post('/admin/users/' . $user->id, $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_admin' => '0',
+            'is_active' => '0',
+        ]);
     }
 }
