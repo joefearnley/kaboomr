@@ -10,17 +10,17 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserAccountAdminController;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('bookmarks', BookmarkController::class)->middleware('auth');
 
-Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])->middleware('auth');
+Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])->middleware(['auth','verified']);
 
-Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware('auth');
+Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware(['auth','verified']);
 
-Route::group(['prefix' => 'account', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => 'account', 'middleware' => ['auth','verified']], function() {
     Route::get('/', [UserAccountController::class, 'index'])
         ->name('account');
 
@@ -31,7 +31,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth']], function() {
         ->name('account.update-email');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'admin']], function() {
     Route::get('/', [AdminController::class, 'index'])
         ->name('admin.dashboard');
 
