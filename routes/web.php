@@ -37,3 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'admin']
 
     Route::resource('users', UserAccountAdminController::class);
 });
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware(['auth'])
+    ->name('verification.notice');

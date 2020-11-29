@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Bookmark;
 use Conner\Tagging\Model\Tag;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
