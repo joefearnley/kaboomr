@@ -13,7 +13,7 @@ class HomeTest extends TestCase
 
     public function test_home_page_displays()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('home'));
 
         $response->assertViewIs('home');
 
@@ -26,7 +26,7 @@ class HomeTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/');
+        $response = $this->actingAs($user)->get(route('home'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
