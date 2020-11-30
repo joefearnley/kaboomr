@@ -16,7 +16,7 @@ class SearchTest extends TestCase
     {
         $searchTerm = 'test';
 
-        $response = $this->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -30,7 +30,7 @@ class SearchTest extends TestCase
 
         $searchTerm = 'asfdasdfasdf';
 
-        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.search-results');
@@ -50,7 +50,7 @@ class SearchTest extends TestCase
 
         $searchTerm = 'World';
 
-        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.search-results');
@@ -75,7 +75,7 @@ class SearchTest extends TestCase
 
         $searchTerm = 'World';
 
-        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.search-results');
@@ -100,7 +100,7 @@ class SearchTest extends TestCase
 
         $searchTerm = 'tag1';
 
-        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.search-results');
@@ -134,7 +134,7 @@ class SearchTest extends TestCase
 
         $searchTerm = 'guitar';
 
-        $response = $this->actingAs($user)->get('/bookmarks/search/' . $searchTerm);
+        $response = $this->actingAs($user)->get(route('bookmarks.search', $searchTerm));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.search-results');

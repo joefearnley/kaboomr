@@ -18,10 +18,12 @@ Route::resource('bookmarks', BookmarkController::class)
     ->middleware('auth', 'verified');
 
 Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])
-    ->middleware(['auth','verified']);
+    ->middleware(['auth','verified'])
+    ->name('bookmarks.tag');
 
 Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])
-    ->middleware(['auth','verified']);
+    ->middleware(['auth','verified'])
+    ->name('bookmarks.search');
 
 Route::group(['prefix' => 'account', 'middleware' => ['auth','verified']], function() {
     Route::get('/', [UserAccountController::class, 'index'])

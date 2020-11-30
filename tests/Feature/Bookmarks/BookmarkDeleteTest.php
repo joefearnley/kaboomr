@@ -21,7 +21,7 @@ class BookmarkDeleteTest extends TestCase
             ->hasBookmarks(1)
             ->create();
 
-        $bookmarkToDeleteId = $user2->bookmarks->first()->id;
+        $bookmark = $user2->bookmarks->first()->id;
 
         $formData = [
             '_method' => 'DELETE',
@@ -29,7 +29,7 @@ class BookmarkDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($user1)
-            ->post('/bookmarks/' . $bookmarkToDeleteId, $formData);
+            ->post(route('bookmarks.destroy', $bookmark), $formData);
 
         $response->assertStatus(403);
     }
@@ -52,7 +52,7 @@ class BookmarkDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.destroy', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -81,7 +81,7 @@ class BookmarkDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.destroy', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -109,7 +109,7 @@ class BookmarkDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.destroy', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));

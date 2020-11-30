@@ -21,11 +21,11 @@ class BookmarkEditTest extends TestCase
             ->hasBookmarks(1)
             ->create();
 
-        $bookmarkToDEditId = $user2->bookmarks->first()->id;
+        $bookmark = $user2->bookmarks->first()->id;
 
         $response = $this
             ->actingAs($user1)
-            ->get('/bookmarks/' . $bookmarkToDEditId .'/edit/');
+            ->get(route('bookmarks.edit', $bookmark));
 
         $response->assertStatus(403);
     }
@@ -42,7 +42,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/bookmarks/' . $bookmark->id .'/edit/');
+            ->get(route('bookmarks.edit', $bookmark));
 
         $response->assertStatus(200);
         $response->assertSee($bookmark->name);
@@ -68,7 +68,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(405);
     }
@@ -90,7 +90,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
@@ -113,7 +113,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('url');
@@ -139,7 +139,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -178,7 +178,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -222,7 +222,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -258,7 +258,7 @@ class BookmarkEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->post('/bookmarks/' . $bookmark->id, $formData);
+            ->post(route('bookmarks.update', $bookmark), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));

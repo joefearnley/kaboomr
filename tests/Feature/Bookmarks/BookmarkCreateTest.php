@@ -13,7 +13,7 @@ class BookmarkCreateTest extends TestCase
 
     public function test_cannot_see_create_bookmark_form_when_not_logged_in()
     {
-        $response = $this->get('/bookmarks/create');
+        $response = $this->get(route('bookmarks.create'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -23,7 +23,9 @@ class BookmarkCreateTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks/create');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.create'));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.create');
@@ -39,7 +41,9 @@ class BookmarkCreateTest extends TestCase
             'description' => '',
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks/', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
@@ -56,7 +60,9 @@ class BookmarkCreateTest extends TestCase
             'description' => '',
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks/', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
@@ -72,7 +78,9 @@ class BookmarkCreateTest extends TestCase
             'description' => '',
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks/', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('url');
@@ -88,7 +96,9 @@ class BookmarkCreateTest extends TestCase
             'description' => '',
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks/', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('url');
@@ -104,7 +114,9 @@ class BookmarkCreateTest extends TestCase
             'description' => 'This is a description',
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -123,7 +135,9 @@ class BookmarkCreateTest extends TestCase
             'tags' => 'google,web dev,description,test'
         ];
 
-        $response = $this->actingAs($user)->post('/bookmarks', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -152,8 +166,9 @@ class BookmarkCreateTest extends TestCase
             'tags' => 'google,web dev,description,test'
         ];
 
-        $response = $this->actingAs($user)
-            ->post('/bookmarks', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('bookmarks.store'), $formData);
 
         $response->assertRedirect(route('bookmarks.index'));
 

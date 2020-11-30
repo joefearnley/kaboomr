@@ -26,7 +26,7 @@ class AuthTest extends TestCase
             'password' => '',
         ];
 
-        $response = $this->post('/login', $formData);
+        $response = $this->post(route('login'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
@@ -39,7 +39,7 @@ class AuthTest extends TestCase
             'password' => '',
         ];
 
-        $response = $this->post('/login', $formData);
+        $response = $this->post(route('login'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('password');
@@ -52,7 +52,7 @@ class AuthTest extends TestCase
             'password' => 'secret123',
         ];
 
-        $response = $this->post('/login', $formData);
+        $response = $this->post(route('login'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
@@ -68,7 +68,7 @@ class AuthTest extends TestCase
             'password' => 'password',
         ];
 
-        $response = $this->post('/login', $formData);
+        $response = $this->post(route('login'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect('/bookmarks');

@@ -13,7 +13,7 @@ class AdminDashboardTest extends TestCase
 
     public function test_cannot_access_admin_dashboard_when_not_admin()
     {
-        $response = $this->get('/admin');
+        $response = $this->get(route('admin.dashboard'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -23,7 +23,7 @@ class AdminDashboardTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/admin');
+        $response = $this->actingAs($user)->get(route('admin.dashboard'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('bookmarks.index'));
@@ -35,7 +35,7 @@ class AdminDashboardTest extends TestCase
             'is_admin' => 1
         ]);
 
-        $response = $this->actingAs($user)->get('/admin');
+        $response = $this->actingAs($user)->get(route('admin.dashboard'));
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.dashboard');

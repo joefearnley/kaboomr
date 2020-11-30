@@ -17,7 +17,9 @@ class NavTest extends TestCase
             ->hasBookmarks(3)
             ->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.index'));
 
         $response->assertSee('Logout');
     }
@@ -28,7 +30,9 @@ class NavTest extends TestCase
             ->hasBookmarks(3)
             ->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.index'));
 
         $response->assertSee('Account');
     }
@@ -39,7 +43,9 @@ class NavTest extends TestCase
             ->hasBookmarks(3)
             ->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.index'));
 
         $response->assertDontSee('Admin');
     }
@@ -50,7 +56,9 @@ class NavTest extends TestCase
             'is_admin' => 1
         ]);
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.index'));
 
         $response->assertSee('Admin');
     }

@@ -23,7 +23,7 @@ class UserAccountAdminDeleteTest extends TestCase
             '_method' => 'DELETE',
         ];
 
-        $response = $this->post('/admin/users/' . $user->id, $formData);
+        $response = $this->post(route('users.destroy', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -34,10 +34,13 @@ class UserAccountAdminDeleteTest extends TestCase
         $nonAdminUser = User::factory()->create();
 
         $user = User::factory()->create();
+        $formData = [
+            '_method' => 'DELETE',
+        ];
 
         $response = $this
             ->actingAs($user)
-            ->get('/admin/users/' . $nonAdminUser->id .'/edit/');
+            ->post(route('users.destroy', $user), $formData);
 
             $response->assertStatus(302);
             $response->assertRedirect(route('bookmarks.index'));
@@ -61,7 +64,7 @@ class UserAccountAdminDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.destroy', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));
@@ -89,7 +92,7 @@ class UserAccountAdminDeleteTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.destroy', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));

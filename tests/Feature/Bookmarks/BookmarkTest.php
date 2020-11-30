@@ -23,7 +23,7 @@ class BookmarkTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this->actingAs($user)->get(route('bookmarks.index'));
 
         $response->assertStatus(200);
 
@@ -37,7 +37,7 @@ class BookmarkTest extends TestCase
             ->hasBookmarks(3)
             ->create();
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this->actingAs($user)->get(route('bookmarks.index'));
 
         $response->assertStatus(200);
 
@@ -57,7 +57,7 @@ class BookmarkTest extends TestCase
         $bookmark = $user->bookmarks->first();
         $bookmark->tag(['tag1', 'tag2']);
 
-        $response = $this->actingAs($user)->get('/bookmarks');
+        $response = $this->actingAs($user)->get(route('bookmarks.index'));
 
         $response->assertStatus(200);
 
@@ -81,7 +81,7 @@ class BookmarkTest extends TestCase
             ->hasBookmarks(1)
             ->create();
 
-        $response = $this->actingAs($user1)->get('/bookmarks');
+        $response = $this->actingAs($user1)->get(route('bookmarks.index'));
 
         $response->assertStatus(200);
 

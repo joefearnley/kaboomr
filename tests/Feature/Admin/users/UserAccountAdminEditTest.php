@@ -15,7 +15,7 @@ class UserAccountAdminEditTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->get('/admin/users/' . $user->id . '/edit/');
+        $response = $this->get(route('users.edit', $user));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -29,7 +29,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/admin/users/' . $user->id .'/edit/');
+            ->get(route('users.edit', $user));
 
             $response->assertStatus(302);
             $response->assertRedirect(route('bookmarks.index'));
@@ -45,7 +45,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->get('/admin/users/' . $user->id .'/edit/');
+            ->get(route('users.edit', $user));
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.users.edit');
@@ -68,7 +68,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(405);
     }
@@ -89,7 +89,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
 
@@ -112,7 +112,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
 
@@ -138,7 +138,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
 
@@ -167,7 +167,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));
@@ -176,7 +176,7 @@ class UserAccountAdminEditTest extends TestCase
         ]);
     }
 
-    public function test_dit_user_account_form_shows_admin_field()
+    public function test_edit_user_account_form_shows_admin_field()
     {
         $admin = User::factory()->create([
             'is_admin' => 1
@@ -186,7 +186,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->get('/admin/users/' . $user->id .'/edit/');
+            ->get(route('users.edit', $user));
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.users.edit');
@@ -210,7 +210,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));
@@ -232,7 +232,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->get('/admin/users/' . $user->id .'/edit/');
+            ->get(route('users.edit', $user));
 
         $response->assertStatus(200);
         $response->assertViewIs('admin.users.edit');
@@ -266,7 +266,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));
@@ -304,7 +304,7 @@ class UserAccountAdminEditTest extends TestCase
 
         $response = $this
             ->actingAs($admin)
-            ->post('/admin/users/' . $user->id, $formData);
+            ->post(route('users.update', $user), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('users.index'));

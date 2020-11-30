@@ -14,7 +14,7 @@ class BookmarkTagTest extends TestCase
 
     public function test_tag_list_redirect_to_login_when_not_authenticated()
     {
-        $response = $this->get('/bookmarks/tag/tag1');
+        $response = $this->get(route('bookmarks.tag', 'tag1'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -28,8 +28,9 @@ class BookmarkTagTest extends TestCase
 
         $tag = 'tag1';
 
-        $response = $this->actingAs($user)
-            ->get('/bookmarks/tag/' . $tag);
+        $response = $this
+            ->actingAs($user)
+            ->get(route('bookmarks.tag', $tag));
 
         $response->assertStatus(200);
         $response->assertViewIs('bookmarks.taglist');
@@ -51,7 +52,7 @@ class BookmarkTagTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/bookmarks/tag/' . $tag);
+            ->get(route('bookmarks.tag', $tag));
 
         $response->assertStatus(200);
         $response->assertSee($bookmark->name);
