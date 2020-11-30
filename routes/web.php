@@ -14,11 +14,14 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::resource('bookmarks', BookmarkController::class)->middleware('auth');
+Route::resource('bookmarks', BookmarkController::class)
+    ->middleware('auth', 'verified');
 
-Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])->middleware(['auth','verified']);
+Route::get('bookmarks/tag/{tag}', [BookmarkTagController::class, 'list'])
+    ->middleware(['auth','verified']);
 
-Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])->middleware(['auth','verified']);
+Route::get('bookmarks/search/{term}', [SearchController::class, 'index'])
+    ->middleware(['auth','verified']);
 
 Route::group(['prefix' => 'account', 'middleware' => ['auth','verified']], function() {
     Route::get('/', [UserAccountController::class, 'index'])

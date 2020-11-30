@@ -13,7 +13,7 @@ class AccountTest extends TestCase
 
     public function test_account_page_redirects_to_login_when_not_authenticated()
     {
-        $response = $this->get('/account');
+        $response = $this->get(route('account'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -23,7 +23,9 @@ class AccountTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/account');
+        $response = $this
+            ->actingAs($user)
+            ->get(route('account'));
 
         $response->assertStatus(200);
 
@@ -43,8 +45,9 @@ class AccountTest extends TestCase
             'name' => '',
         ];
 
-        $response = $this->actingAs($user)
-            ->post('/account/update-name', $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update-name'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
@@ -61,7 +64,7 @@ class AccountTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/account/update-name', $formData);
+            ->post(route('account.update-name'), $formData);
 
         $response->assertStatus(302);
 
@@ -81,7 +84,7 @@ class AccountTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/account/update-name', $formData);
+            ->post(route('account.update-name'), $formData);
 
         $response->assertStatus(302);
 
@@ -104,7 +107,7 @@ class AccountTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/account/update-email', $formData);
+            ->post(route('account.update-email'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
@@ -121,7 +124,7 @@ class AccountTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/account/update-email', $formData);
+            ->post(route('account.update-email'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('account'));
@@ -142,7 +145,7 @@ class AccountTest extends TestCase
         ];
 
         $response = $this->actingAs($user)
-            ->post('/account/update-email', $formData);
+            ->post(route('account.update-email'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('account'));

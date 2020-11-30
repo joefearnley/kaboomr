@@ -1,10 +1,12 @@
 ## kaboomr
 
-Guess who's back in the roomr.
+[Guess who's back in the roomr.](https://www.youtube.com/watch?v=Tjyb7MPnuj4)
 
 This is a bookmarking service written using [Laravel](https://laravel.com) and [Laravel UI](https://github.com/laravel/ui).
 
 ## Installation
+
+See [Laravel's server requirements](https://laravel.com/docs/8.x#server-requirements) for the system requirements.
 
 - Clone this repository
 ```bash
@@ -38,7 +40,7 @@ php artisan test
 ```
 
 ## Deploying
-This application is deployed to [Heroku](https://heroku.com), which you can follow the instruction here on how to do that:
+[My version of this application](https://kaboomr.herokuapp.com/) is deployed to [Heroku](https://heroku.com), which you can follow the instruction here on how to do that:
 
 [Getting Started with Laravel on Heroku](https://devcenter.heroku.com/articles/getting-started-with-laravel)
 
