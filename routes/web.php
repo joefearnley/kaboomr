@@ -29,11 +29,8 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth','verified']], funct
     Route::get('/', [UserAccountController::class, 'index'])
         ->name('account');
 
-    Route::patch('/update-name', [UserAccountController::class, 'updateName'])
-        ->name('account.update-name');
-
-    Route::patch('/update-email', [UserAccountController::class, 'updateEmail'])
-        ->name('account.update-email');
+    Route::patch('/update', [UserAccountController::class, 'update'])
+        ->name('account.update');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'admin']], function() {

@@ -29,12 +29,12 @@ class AccountTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertSee('Account');
-        $response->assertSee('Update Name');
-        $response->assertSee('Update Email Address');
+        $response->assertSee('Edit User Account');
+        $response->assertSee('Name');
+        $response->assertSee('Email Address');
+        $response->assertSee('Update');
         $response->assertSee('Reset Password');
     }
-
 
     public function test_updating_name_requires_form_fields()
     {
@@ -43,11 +43,12 @@ class AccountTest extends TestCase
         $formData = [
             '_method' => 'PATCH',
             'name' => '',
+            'email' => $user->email,
         ];
 
         $response = $this
             ->actingAs($user)
-            ->post(route('account.update-name'), $formData);
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
@@ -61,12 +62,15 @@ class AccountTest extends TestCase
         $formData = [
             '_method' => 'PATCH',
             'name' => $updateName,
+            'email' => $user->email,
         ];
 
-        $response = $this->actingAs($user)
-            ->post(route('account.update-name'), $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('users', [
             'name' => $updateName,
@@ -81,10 +85,12 @@ class AccountTest extends TestCase
         $formData = [
             '_method' => 'PATCH',
             'name' => $updateName,
+            'email' => $user->email,
         ];
 
-        $response = $this->actingAs($user)
-            ->post(route('account.update-name'), $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
 
@@ -93,7 +99,7 @@ class AccountTest extends TestCase
         ]);
 
         $response->assertSessionHas([
-            'success' => 'Your account\'s Name has been updated!'
+            'success' => 'Your user account has been updated!'
         ]);
     }
 
@@ -103,11 +109,13 @@ class AccountTest extends TestCase
 
         $formData = [
             '_method' => 'PATCH',
+            'name' => $user->name,
             'email' => '',
         ];
 
-        $response = $this->actingAs($user)
-            ->post(route('account.update-email'), $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('email');
@@ -120,11 +128,13 @@ class AccountTest extends TestCase
 
         $formData = [
             '_method' => 'PATCH',
+            'name' => $user->name,
             'email' => $updatedEmail,
         ];
 
-        $response = $this->actingAs($user)
-            ->post(route('account.update-email'), $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('account'));
@@ -141,11 +151,13 @@ class AccountTest extends TestCase
 
         $formData = [
             '_method' => 'PATCH',
+            'name' => $user->name,
             'email' => $updatedEmail,
         ];
 
-        $response = $this->actingAs($user)
-            ->post(route('account.update-email'), $formData);
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
 
         $response->assertStatus(302);
         $response->assertRedirect(route('account'));
@@ -155,7 +167,31 @@ class AccountTest extends TestCase
         ]);
 
         $response->assertSessionHas([
-            'success' => 'Your account\'s Email has been updated!'
+            'success' => 'Your user account has been updated!'
+        ]);
+    }
+
+    public function test_change_account_name_and_email_address()
+    {
+        $user = User::factory()->create();
+        $updateName = 'John Doe';
+        $updatedEmail = 'john.doe123@gmail.com';
+
+        $formData = [
+            '_method' => 'PATCH',
+            'name' => $updateName,
+            'email' => $user->email,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('users', [
+            'name' => $updateName,
         ]);
     }
 }

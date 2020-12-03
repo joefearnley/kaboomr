@@ -27,42 +27,22 @@ class UserAccountController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function updateName(Request $request)
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|max:150',
+            'email' => 'required|email|max:150',
         ]);
 
         $user = Auth::user();
-
         $user->name = $request->name;
+        $user->email = $request->email;
         $user->save();
 
         Mail::to($user->email)
             ->send(new UserAccountUpdateNotification($user));
 
-        $request->session()->flash('success', 'Your account\'s Name has been updated!');
-
-        return redirect('/account');
-    }
-
-    /**
-     * Update an account email address.
-     *
-     * @param  mixed $request
-     * @return void
-     */
-    public function updateEmail(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|unique:users|email|max:150',
-        ]);
-
-        $user = Auth::user();
-        $user->email = $request->email;
-        $user->save();
-
-        $request->session()->flash('success', 'Your account\'s Email has been updated!');
+        $request->session()->flash('success', 'Your user account has been updated!');
 
         return redirect('/account');
     }
