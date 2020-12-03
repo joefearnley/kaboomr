@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use App\Models\User;
 
@@ -72,5 +74,23 @@ class AccountRegistationTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertRedirect(route('verification.notice'));
+    }
+
+    function test_a_confirmation_email_is_sent_on_registration()
+    {
+        Notification::fake();
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+            'password_confirmation' => 'secret123',
+        ];
+
+        $response = $this->post(route('register'), $formData);
+
+        $user = User::first();
+
+        Notification::assertSentTo($user, VerifyEmail::class);
     }
 }
