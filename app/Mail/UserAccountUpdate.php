@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserAccountUpdateNotification extends Mailable
+class UserAccountUpdate extends Mailable
 {
     use Queueable, SerializesModels;
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UserAccountUpdateNotification;
+use App\Mail\UserAccountUpdate;
 
 class UserAccountController extends Controller
 {
@@ -40,7 +40,7 @@ class UserAccountController extends Controller
         $user->save();
 
         Mail::to($user->email)
-            ->send(new UserAccountUpdateNotification($user));
+            ->send(new UserAccountUpdate($user));
 
         $request->session()->flash('success', 'Your user account has been updated!');
 

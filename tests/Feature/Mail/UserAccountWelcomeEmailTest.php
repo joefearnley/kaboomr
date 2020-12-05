@@ -7,9 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Mail\UserAccountRegistrationNotification;
+use App\Mail\UserAccountWelcome;
 
-class UserAccountRegistrationNoficationTest extends TestCase
+class UserAccountWelcomeEmailTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,7 +19,7 @@ class UserAccountRegistrationNoficationTest extends TestCase
 
         Mail::fake();
 
-        Mail::to($user->email)->send(new UserAccountRegistrationNotification($user));
+        Mail::to($user->email)->send(new UserAccountWelcome($user));
 
         Mail::assertSent(UserAccountRegistrationNotification::class, function ($mail) use ($user) {
             return $mail->hasTo($user->email);
