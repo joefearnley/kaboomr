@@ -20,8 +20,7 @@
                 <strong>{{ $message }}</strong>
             </div>
             @endif
-            <h2>User Accounts</h2>
-            <hr>
+            <h3>User Accounts</h3>
         </div>
     </div>
     @foreach ($users as $user)
@@ -37,7 +36,7 @@
                                 </p>
                             </div>
                             <div class="col-md-4 justify-content-center my-auto text-center">
-                                <a href="/admin/users/{{ $user->id }}/edit/" class="btn btn-secondary mr-3"  data-user-id="{{ $user->id }}">
+                                <a href="/admin/users/{{ $user->id }}/edit/" class="btn btn-primary mr-3"  data-user-id="{{ $user->id }}">
                                     Edit
                                 </a>
                                 <a href="/admin/users/{{ $user->id }}" class="btn btn-danger confirm-user-delete" data-user-id="{{ $user->id }}">

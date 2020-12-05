@@ -19,8 +19,7 @@
                 <strong>{{ $message }}</strong>
             </div>
             @endif
-            <h2>Admin Dashboard</h2>
-            <hr>
+            <h3>Admin Dashboard</h3>
         </div>
     </div>
     <div class="row justify-content-center mt-4 align-self-center mb-5">
@@ -30,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-8 my-auto">
                             <a href="{{ route('users.index') }}">
-                                <h5>User Accounts</h5>
+                                User Accounts
                             </a>
                         </div>
                         <div class="col-md-4 justify-content-center my-auto text-center">

@@ -56,10 +56,10 @@
                         <label class="form-check-label" for="is-admin">Administrator?</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-secondary mr-2">
+                <button type="submit" class="btn btn-info mr-2">
                     Save
                 </button>
-                <a href="{{ route('users.index') }}" class="btn btn-primary">
+                <a href="{{ route('users.index') }}" class="btn btn-secondary">
                     Cancel
                 </a>
             </form>

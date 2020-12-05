@@ -11246,7 +11246,6 @@ Copyright (c) 2015 Daniel Eden
   font-weight: 600;
   font-size: 0.8571em;
   line-height: 1.35em;
-  text-transform: uppercase;
   border: none;
   margin: 10px 1px;
   border-radius: 3px;
@@ -13764,7 +13763,6 @@ a[data-toggle=collapse][aria-expanded=true] .caret,
 }
 
 .navbar .navbar-nav .nav-link {
-  text-transform: uppercase;
   font-size: 0.7142em;
   padding: 0.5rem 0.7rem;
   line-height: 1.625rem;
@@ -14507,6 +14505,10 @@ a[data-toggle=collapse][aria-expanded=true] .caret,
   color: #9C9B99;
   font-size: 0.9em;
   line-height: 35px;
+}
+
+.breadcrumb {
+  background-color: #f8f9fa;
 }
 
 .alert {
