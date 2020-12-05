@@ -157,14 +157,12 @@
 
     .dropdown-item:hover,
     .dropdown-item:focus{
-        color: $white-color !important;
         opacity: 1;
         text-decoration: none;
-
     }
     .dropdown-item:hover,
     .dropdown-item:focus{
-        background-color: $default-color;
+        background-color: #f8f9fa;
     }
 
     &.dropdown-primary .dropdown-item:hover,

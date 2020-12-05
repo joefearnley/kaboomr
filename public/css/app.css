@@ -14175,14 +14175,13 @@ a[data-toggle=collapse][aria-expanded=true] .caret,
 
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus {
-  color: #FFFFFF !important;
   opacity: 1;
   text-decoration: none;
 }
 
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus {
-  background-color: #66615B;
+  background-color: #f8f9fa;
 }
 
 .dropdown-menu.dropdown-primary .dropdown-item:hover,
