@@ -46,14 +46,24 @@
                 </div>
                 <div class="form-group">
                     <div class="form-check">
-                        <input type="checkbox" name="is_active" class="form-check-input" id="is-active" {{ $user->is_active ? 'checked="checked"' : '' }}>
-                        <label class="form-check-label" for="is-active">Active?</label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="is_active" type="checkbox" id="is-active" {{ $user->is_active ? 'checked="checked"' : '' }}>
+                            Active?
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-check">
-                        <input type="checkbox" name="is_admin" class="form-check-input" id="is-admin" {{ $user->is_admin ? 'checked="checked"' : '' }}>
-                        <label class="form-check-label" for="is-admin">Administrator?</label>
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="is_admin" type="checkbox" id="is-admin" {{ $user->is_admin ? 'checked="checked"' : '' }}>
+                            Administrator?
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+                        </label>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-info mr-2">
