@@ -7,7 +7,7 @@
             <h4>Bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
         </div>
         <div class="col-md-4 my-2 text-right">
-            <a href="{{ route('bookmarks.create') }}" class="btn btn-secondary">
+            <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
         </div>
@@ -36,7 +36,7 @@
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
                             <div class="col-md-4 justify-content-center my-auto text-center">
-                                <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-secondary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
+                                <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-primary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
                                     Edit
                                 </a>
                                 <a href="/bookmarks/{{ $bookmark->id }}/delete/" class="btn btn-danger confirm-bookmark-delete" data-bookmark-id="{{ $bookmark->id }}">
