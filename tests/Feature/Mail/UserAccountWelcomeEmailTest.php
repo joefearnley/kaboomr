@@ -21,7 +21,7 @@ class UserAccountWelcomeEmailTest extends TestCase
 
         Mail::to($user->email)->send(new UserAccountWelcome($user));
 
-        Mail::assertSent(UserAccountRegistrationNotification::class, function ($mail) use ($user) {
+        Mail::assertSent(UserAccountWelcome::class, function ($mail) use ($user) {
             return $mail->hasTo($user->email);
         });
     }
