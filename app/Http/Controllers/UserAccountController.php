@@ -39,8 +39,6 @@ class UserAccountController extends Controller
         $user->email = $request->email;
         $user->save();
 
-
-
         Mail::to($user->email)
             ->send(new UserAccountUpdate($user));
 
