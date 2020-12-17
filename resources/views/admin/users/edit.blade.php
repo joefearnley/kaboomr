@@ -1,11 +1,5 @@
 @extends('layouts.app')
-<?php
 
-// echo'<pre>';
-// var_dump($errors->has('name') );
-// die();
-
-?>
 @section('content')
 <div class="container">
 @if ($errors->any())
