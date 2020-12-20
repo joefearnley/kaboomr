@@ -40,10 +40,10 @@
                                 </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary mr-2">
                             Update
                         </button>
-                        <a href="{{ route('bookmarks.index') }}" class="btn btn-danger">
+                        <a href="{{ route('bookmarks.index') }}" class="btn btn-secondary">
                             Cancel
                         </a>
                     </form>
