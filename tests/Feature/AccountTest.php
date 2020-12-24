@@ -194,4 +194,38 @@ class AccountTest extends TestCase
             'name' => $updateName,
         ]);
     }
+
+
+    public function test_user_edit_form_show_option_to_show_most_used_tags()
+    {
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->get(route('account'));
+
+        $response->assertSee('Show most used tags on Bookmark list?');
+    }
+
+    public function test_user_edit_form_remove_show_most_used_bookmarks()
+    {
+        $user = User::factory()->create();
+
+        $formData = [
+            '_method' => 'PATCH',
+            'name' => $updateName,
+            'email' => $user->email,
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('users', [
+            'show_most_used_tags' => '0',
+        ]);
+    }
 }

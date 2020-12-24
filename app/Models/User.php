@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'is_admin',
         'is_active',
+        'show_most_used_tags',
     ];
 
     /**
@@ -55,10 +56,25 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return (bool) $this->is_admin;
     }
-
+    
+    /**
+     * Check if user is active or not.
+     *
+     * @return void
+     */
     public function isActive()
     {
         return (bool) $this->is_active;
+    }
+    
+    /**
+     * Check if user is should show most used tags on bookmark list.
+     *
+     * @return void
+     */
+    public function showMostUsedTags()
+    {
+        return (bool) $this->show_most_used_tags;
     }
 
     /**

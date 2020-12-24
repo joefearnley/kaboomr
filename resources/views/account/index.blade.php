@@ -40,6 +40,17 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" name="show_used_tags" type="checkbox" id="is-active" {{ $user->show_used_tags ? 'checked="checked"' : '' }}>
+                                    Show most used tags on Bookmark list?
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary mr-2">
                             Update
                         </button>

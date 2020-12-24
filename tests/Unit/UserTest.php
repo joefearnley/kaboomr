@@ -42,4 +42,12 @@ class UserTest extends TestCase
 
         $this->assertTrue($user->isAdmin());
     }
+
+    public function test_user_defaults_to_show_most_used_bookmarks()
+    {
+        $user = User::factory()->create();
+
+        $this->assertTrue($user->showMostUsedTags());
+    }
+
 }

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-class BookmarkMostUsedTags extends TestCase
+class BookmarkMostCommonTags extends TestCase
 {
 
     public function test_bookmark_list_shows_most_used_tags()
