@@ -9,6 +9,20 @@ use App\Models\User;
 
 class BookmarkMostCommonTags extends TestCase
 {
+    public function test_bookmark_list_does_not_show_most_used_tags()
+    {
+        $user = User::factory([
+            'show_most_used_tags' => false
+        ]);
+
+        $user = User::factory()->create();
+
+        $response = $this
+            ->actingAs($admin)
+            ->get(route('users.edit', $user));
+
+        $response->assertDontSee('Most used tags');
+    }
 
     public function test_bookmark_list_shows_most_used_tags()
     {
