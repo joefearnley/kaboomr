@@ -18,7 +18,16 @@ class BookmarkMostUsedTags extends TestCase
 
         // instead of above, create all bookmarks with 
         // same tags.....
-        
+        $user->bookmarks->each(function($bookmark) {
+            $bookmark->tag(['dev', 'webdev']);
+        });
 
+        $response = $this->actingAs($user)->get(route('bookmarks.index'));
+
+        $response->assertStatus(200);
+
+        // check to see if 
+
+        $response->assertSee('Most used tags');
     }
 }

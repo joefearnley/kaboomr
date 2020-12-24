@@ -31,6 +31,25 @@
             </a>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-md-2 offset-md-1 my-2">
+            <p>
+                <strong>{{ __('Most used tags:') }}</strong>
+            </p>
+        </div>
+        <div class="col-md-4 my-2">
+            <a href="/bookmarks/tag/test" class="badge mr-2">
+                test
+            </a>
+            <a href="/bookmarks/tag/test2" class="badge badge-light mr-2">
+                test2
+            </a>
+            <a href="/bookmarks/tag/test3" class="badge badge-light mr-2">
+                test3
+            </a>
+        </div>
+        
+    </div>
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">

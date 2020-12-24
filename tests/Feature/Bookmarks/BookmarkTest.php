@@ -13,7 +13,7 @@ class BookmarkTest extends TestCase
 
     public function test_cannot_access_bookmarks_list_without_being_logged_in()
     {
-        $response = $this->get('/bookmarks');
+        $response = $this->get(route('bookmarks.index'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
