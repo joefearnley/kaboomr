@@ -213,8 +213,9 @@ class AccountTest extends TestCase
 
         $formData = [
             '_method' => 'PATCH',
-            'name' => $updateName,
+            'name' => $user->name,
             'email' => $user->email,
+            'show_most_used_tags' => '',
         ];
 
         $response = $this
@@ -226,6 +227,29 @@ class AccountTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'show_most_used_tags' => '0',
+        ]);
+    }
+
+    public function test_user_edit_form_add_show_most_used_bookmarks()
+    {
+        $user = User::factory()->create();
+
+        $formData = [
+            '_method' => 'PATCH',
+            'name' => $user->name,
+            'email' => $user->email,
+            'show_most_used_tags' => 'on',
+        ];
+
+        $response = $this
+            ->actingAs($user)
+            ->post(route('account.update'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('users', [
+            'show_most_used_tags' => '1',
         ]);
     }
 }

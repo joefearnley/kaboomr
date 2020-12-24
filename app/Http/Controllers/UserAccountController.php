@@ -35,9 +35,11 @@ class UserAccountController extends Controller
         ]);
 
         $user = Auth::user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'show_most_used_tags' => $request->show_most_used_tags === 'on',
+        ]);
 
         Mail::to($user->email)
             ->send(new UserAccountUpdate($user));

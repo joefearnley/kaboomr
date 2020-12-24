@@ -300,6 +300,7 @@ class UserAccountAdminEditTest extends TestCase
             '_method' => 'PUT',
             'name' => $user->name,
             'email' => $user->email,
+            'is_active' => '',
         ];
 
         $response = $this
