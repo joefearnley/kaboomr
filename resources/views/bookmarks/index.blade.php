@@ -31,6 +31,7 @@
             </a>
         </div>
     </div>
+    @if (Auth::user()->showMostUsedTags())
     <div class="row mt-4">
         <div class="col-md-2 offset-md-1 my-2">
             <p>
@@ -48,8 +49,8 @@
                 test3
             </a>
         </div>
-        
     </div>
+    @endif
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
             <div class="col-md-10 mt-4">
