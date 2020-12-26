@@ -38,16 +38,12 @@
                 <strong>{{ __('Most used tags:') }}</strong>
             </p>
         </div>
-        <div class="col-md-4 my-2">
+        <div class="col-md-4 my-2 most-used-tags">
+            @foreach ($bookmarks as $bookmark)
             <a href="/bookmarks/tag/test" class="badge mr-2">
                 test
             </a>
-            <a href="/bookmarks/tag/test2" class="badge badge-light mr-2">
-                test2
-            </a>
-            <a href="/bookmarks/tag/test3" class="badge badge-light mr-2">
-                test3
-            </a>
+            @endforeach
         </div>
     </div>
     @endif
