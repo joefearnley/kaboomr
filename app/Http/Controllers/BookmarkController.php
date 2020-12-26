@@ -15,10 +15,13 @@ class BookmarkController extends Controller
      */
     public function index()
     {
-
         $bookmarks = Auth::user()->bookmarks()->paginate(15);
+        $mostUsedTags = Auth::user()->mostUsedTags();
 
-        return view('bookmarks.index', ['bookmarks' => $bookmarks]);
+        return view('bookmarks.index', [
+            'bookmarks' => $bookmarks,
+            'mostUsedTags' => $mostUsedTags
+        ]);
     }
 
     /**

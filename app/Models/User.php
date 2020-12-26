@@ -134,7 +134,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $bookmark->delete();
     }
-    
+
     /**
      * Get all user's bookmarks by tag.
      *
@@ -146,7 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->bookmarks()
             ->withAnyTag($tag);
     }
-    
+
     /**
      * Search user bookmarks
      *
@@ -204,5 +204,23 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return $this->taggedBookmarks($tagNames);
+    }
+    
+    /**
+     * Get the user's top x ($limi) most used tags.
+     *
+     * @return void
+     */
+    public function mostUsedTags($limit = 4)
+    {
+        $bookmarkIds = $this->bookmarks()->pluck('id');
+
+        return Tag::select('slug', 'name', 'count', \DB::raw('count(*) as total'))
+            ->join('tagging_tagged', 'tagging_tags.slug', '=', 'tagging_tagged.tag_slug')
+            ->whereIn('tagging_tagged.taggable_id', $bookmarkIds)
+            ->groupBy('slug', 'name', 'count')
+            ->orderBy('count', 'desc')
+            ->limit($limit)
+            ->get();
     }
 }

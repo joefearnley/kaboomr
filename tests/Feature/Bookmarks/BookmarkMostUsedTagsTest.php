@@ -58,14 +58,9 @@ class BookmarkMostUsedTagsTest extends TestCase
         $html = $response->getContent();
 
         $crawler = new Crawler($html);
-        $this->assertEquals(1, $crawler->filter('div#most-used-tags')->count());
-    }
 
-    protected function see($text, $element = 'body')
-    {
-        $crawler = $this->client->getCrawler();
-        $matches = $crawler->filter("{$element}:contains('{$text}')");
-    
-        $this->assertGreaterThan(0, count($matches), "Expected to see the text '$text' within an '$element' element.");
+        $mostUsedTagsSection = $crawler->filter('.most-used-tags > .most-used-tag');
+
+        $this->assertEquals(4, $mostUsedTagsSection->count());
     }
 }

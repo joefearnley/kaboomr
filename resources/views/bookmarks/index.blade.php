@@ -39,9 +39,10 @@
             </p>
         </div>
         <div class="col-md-4 my-2 most-used-tags">
-            @foreach ($bookmarks as $bookmark)
-            <a href="/bookmarks/tag/test" class="badge mr-2">
-                test
+            @foreach ($mostUsedTags as $tag)
+            <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2 most-used-tag">
+                <span class="name">{{ $tag->name }}</span>
+                <span class="count">{{ $tag->count }}</span>
             </a>
             @endforeach
         </div>
