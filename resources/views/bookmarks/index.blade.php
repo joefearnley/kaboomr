@@ -42,7 +42,7 @@
             @foreach ($mostUsedTags as $tag)
             <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2 most-used-tag">
                 <span class="name">{{ $tag->name }}</span>
-                <span class="count">{{ $tag->count }}</span>
+                (<span class="count">{{ $tag->count }}</span>)
             </a>
             @endforeach
         </div>
