@@ -10921,3 +10921,7 @@ body {
   cursor: pointer;
 }
 
+.badge.most-used-tag {
+  background: white;
+}
+

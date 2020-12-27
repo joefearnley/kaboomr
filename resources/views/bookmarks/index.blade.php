@@ -38,7 +38,7 @@
                 <strong>{{ __('Most used tags:') }}</strong>
             </p>
         </div>
-        <div class="col-md-4 my-2 most-used-tags">
+        <div class="col-md-9 my-2 most-used-tags">
             @foreach ($mostUsedTags as $tag)
             <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2 most-used-tag">
                 <span class="name">{{ $tag->name }}</span>
