@@ -20,7 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    @if (request()->route()->uri !== '/')
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm}">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Kaboomr') }}
@@ -84,8 +85,9 @@
             </div>
         </div>
     </nav>
+    @endif
 
-    <main class="h-100">
+    <main class="h-75">
         @yield('content')
     </main>
 

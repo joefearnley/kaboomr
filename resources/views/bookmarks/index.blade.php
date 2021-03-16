@@ -4,14 +4,14 @@
 <div class="container">
     <div class="row mt-4">
     @if ($message = Session::get('success'))
-        <div class="col-md-10 offset-md-1 my-2">
+        <div class="col-md-10 offset-lg-1 my-2">
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
                 <strong>{{ $message }}</strong>
             </div>
         </div>
     @endif
-        <div class="col-md-4 offset-md-1 my-2">
+        <div class="col-md-4 offset-lg-1 my-2">
             <h4>Bookmarks</h4>
         </div>
         <div class="col-md-4">
@@ -25,15 +25,15 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-3 my-2">
+        <div class="col-md-3 my-2 d-none d-lg-block">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
         </div>
     </div>
     @if (Auth::user()->showMostUsedTags())
-    <div class="row mt-4">
-        <div class="col-md-2 offset-md-1 my-2">
+    <div class="row mt-4 offset-lg-1 d-none d-md-block">
+        <div class="col-md-2 my-2">
             <p>
                 <strong>{{ __('Most used tags:') }}</strong>
             </p>
@@ -50,7 +50,7 @@
     @endif
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-md-10 mt-4">
+            <div class="col-lg-10 mt-4">
                 <hr>
                 <h4>You do not have any bookmarks yet!</h4>
                 <p class="mt-4">
@@ -61,7 +61,7 @@
     @else
         @foreach ($bookmarks as $bookmark)
         <div class="row justify-content-center mt-4 align-self-center mb-5">
-            <div class="col-md-10">
+            <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
