@@ -4,20 +4,20 @@
 <div class="container">
     <div class="row mt-4">
     @if ($message = Session::get('success'))
-        <div class="col-md-10 offset-lg-1 my-2">
+        <div class="col-md-12 my-2">
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
                 <strong>{{ $message }}</strong>
             </div>
         </div>
     @endif
-        <div class="col-md-4 offset-lg-1 my-2">
+        <div class="col-md-4 my-2">
             <h4>Bookmarks</h4>
         </div>
         <div class="col-md-4">
-            <div class="form-inline my-2">
-                <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button id="search-button" class="btn btn-primary my-2 my-sm-0" type="submit">
+            <div class="form-inline my-2 input-group">
+                <input id="search-input" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <button id="search-button" class="btn btn-primary" type="submit">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
@@ -25,15 +25,15 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-3 my-2 d-none d-lg-block">
+        <div class="col-md-4 my-2 d-none d-lg-block align-content-right">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
         </div>
     </div>
-    @if (Auth::user()->showMostUsedTags())
-    <div class="row mt-4 offset-lg-1 d-none d-md-block">
-        <div class="col-md-2 my-2">
+    @if (Auth::user()->showMostUsedTags() && count($mostUsedTags) > 0)
+    <div class="row mt-4 d-none d-md-block">
+        <div class="col-md-3 my-2">
             <p>
                 <strong>{{ __('Most used tags:') }}</strong>
             </p>
@@ -50,7 +50,7 @@
     @endif
     @if ($bookmarks->isEmpty())
         <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-lg-10 mt-4">
+            <div class="col-lg-12 mt-4">
                 <hr>
                 <h4>You do not have any bookmarks yet!</h4>
                 <p class="mt-4">
@@ -74,7 +74,7 @@
                                 </p>
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
-                            <div class="col-md-4 justify-content-center my-auto text-center">
+                            <div class="col-md-4 my-auto">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-primary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
                                     Edit
                                 </a>
