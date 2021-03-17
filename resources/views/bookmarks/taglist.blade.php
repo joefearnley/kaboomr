@@ -13,16 +13,16 @@
         </div>
     </div>
     @if ($bookmarks->isEmpty())
-        <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-md-10 mt-4">
+        <div class="row mt-4">
+            <div class="col-md-12 mt-4">
                 <hr>
                 <h4>No bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
             </div>
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row justify-content-center mt-4 align-self-center mb-5">
-            <div class="col-md-10">
+        <div class="row mt-4 mb-5">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -35,7 +35,7 @@
                                 </p>
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
-                            <div class="col-md-4 justify-content-center my-auto text-center">
+                            <div class="col-md-4 my-auto text-lg-center">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-primary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
                                     Edit
                                 </a>

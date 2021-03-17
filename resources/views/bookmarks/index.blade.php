@@ -25,7 +25,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-4 my-2 d-none d-lg-block align-content-right">
+        <div class="col-md-4 my-2 d-none d-md-block align-content-right  text-right">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
@@ -74,7 +74,7 @@
                                 </p>
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
-                            <div class="col-md-4 my-auto">
+                            <div class="col-md-4 my-auto text-lg-center">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-primary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
                                     Edit
                                 </a>

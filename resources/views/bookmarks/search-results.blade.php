@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row mt-4">
-        <div class="col-md-6 offset-md-1 my-2">
+        <div class="col-md-5 my-2">
             <h4>Search results found for &quot;{{ $term }}&quot;.</h4>
         </div>
         <div class="col-md-4">
@@ -17,18 +17,23 @@
                 </button>
             </div>
         </div>
+        <div class="col-md-3 my-2 d-none d-md-block align-content-right  text-right">
+            <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
+                {{ __('Create Bookmark') }}
+            </a>
+        </div>
     </div>
     @if ($bookmarks->isEmpty())
-        <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-md-10 mt-4">
+        <div class="row mt-4">
+            <div class="col-md-12 mt-4">
                 <hr>
                 <h4>No results found for &quot;{{ $term }}&quot;.</h4>
             </div>
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-md-10">
+        <div class="row mt-4">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -41,7 +46,7 @@
                                 </p>
                                 <p class="description">{{ $bookmark->description }}</p>
                             </div>
-                            <div class="col-md-4 justify-content-center my-auto text-center">
+                            <div class="col-md-4 my-auto text-lg-center">
                                 <a href="/bookmarks/{{ $bookmark->id }}/edit/" class="btn btn-primary mr-3"  data-bookmark-id="{{ $bookmark->id }}">
                                     Edit
                                 </a>
