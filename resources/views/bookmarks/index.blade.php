@@ -2,16 +2,18 @@
 
 @section('content')
 <div class="container">
-    <div class="row mt-4">
     @if ($message = Session::get('success'))
-        <div class="col-md-12 my-2">
+    <div class="row justify-content-center align-self-center mt-4 ">
+        <div class="col-xl-10 my-2">
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
                 <strong>{{ $message }}</strong>
             </div>
         </div>
+    </div>
     @endif
-        <div class="col-md-4 my-2">
+    <div class="row mt-4">
+        <div class="col-md-4 offset-xl-1 col-xl-3 my-2">
             <h4>Bookmarks</h4>
         </div>
         <div class="col-md-4">
@@ -25,20 +27,20 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-4 my-2 d-none d-md-block align-content-right  text-right">
+        <div class="col-md-4 col-xl-3 my-2 d-none d-md-block text-right">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
         </div>
     </div>
     @if (Auth::user()->showMostUsedTags() && count($mostUsedTags) > 0)
-    <div class="row mt-4 d-none d-md-block">
-        <div class="col-md-3 my-2">
+    <div class="row mt-4">
+        <div class="col-md-2 offset-xl-1 my-2">
             <p>
                 <strong>{{ __('Most used tags:') }}</strong>
             </p>
         </div>
-        <div class="col-md-9 my-2 most-used-tags">
+        <div class="col-md-9 col-xl-8 my-2 most-used-tags">
             @foreach ($mostUsedTags as $tag)
             <a href="/bookmarks/tag/{{ $tag->slug }}" class="badge badge-light mr-2 most-used-tag">
                 <span class="name">{{ $tag->name }}</span>
@@ -49,8 +51,8 @@
     </div>
     @endif
     @if ($bookmarks->isEmpty())
-        <div class="row justify-content-center mt-4 align-self-center">
-            <div class="col-lg-12 mt-4">
+        <div class="row justify-content-center align-self-center mt-4">
+            <div class="col col-xl-10 mt-4">
                 <hr>
                 <h4>You do not have any bookmarks yet!</h4>
                 <p class="mt-4">
@@ -60,8 +62,8 @@
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row justify-content-center mt-4 align-self-center mb-5">
-            <div class="col">
+        <div class="row justify-content-center align-self-center mt-4 mb-5">
+            <div class="col col-xl-10">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">

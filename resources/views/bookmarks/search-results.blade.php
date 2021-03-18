@@ -3,11 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row mt-4">
-        <div class="col-md-5 my-2">
+        <div class="col-md-12 offset-xl-1 my-2">
             <h4>Search results found for &quot;{{ $term }}&quot;.</h4>
         </div>
-        <div class="col-md-4">
-            <div class="form-inline my-2">
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4 offset-xl-1">
+            <div class="form-inline my-2 input-group">
                 <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button id="search-button" class="btn btn-primary my-2 my-sm-0" type="submit">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +19,7 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-3 my-2 d-none d-md-block align-content-right  text-right">
+        <div class="col-md-8 col-xl-6 my-2 d-none d-md-block text-right">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
@@ -25,15 +27,15 @@
     </div>
     @if ($bookmarks->isEmpty())
         <div class="row mt-4">
-            <div class="col-md-12 mt-4">
+            <div class="col-xl-10 mt-4">
                 <hr>
                 <h4>No results found for &quot;{{ $term }}&quot;.</h4>
             </div>
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row mt-4">
-            <div class="col-md-12">
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-12 col-xl-10">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">

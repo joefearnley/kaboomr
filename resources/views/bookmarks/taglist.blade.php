@@ -3,26 +3,26 @@
 @section('content')
 <div class="container">
     <div class="row mt-4">
-        <div class="col-md-6 offset-md-1 my-2">
+        <div class="col-md-6 offset-xl-1 offset-md-1 my-2">
             <h4>Bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
         </div>
-        <div class="col-md-4 my-2 text-right">
+        <div class="col-md-4 my-2 text-md-right">
             <a href="{{ route('bookmarks.create') }}" class="btn btn-primary">
                 {{ __('Create Bookmark') }}
             </a>
         </div>
     </div>
     @if ($bookmarks->isEmpty())
-        <div class="row mt-4">
-            <div class="col-md-12 mt-4">
+        <div class="row justify-content-center align-self-center mt-4">
+            <div class="col-xl-10 mt-4">
                 <hr>
                 <h4>No bookmarks tagged with &quot;{{ $tag }}&quot;.</h4>
             </div>
         </div>
     @else
         @foreach ($bookmarks as $bookmark)
-        <div class="row mt-4 mb-5">
-            <div class="col-md-12">
+        <div class="row justify-content-center align-self-center mt-4 mb-5">
+            <div class="col-xl-10">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
