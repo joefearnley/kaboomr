@@ -23,6 +23,39 @@ class UserAccountAdminController extends Controller
     /**
      * Show the form for editing a user.
      *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    /**
+     * Create a new user account.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:150',
+            'email' => 'required|email',
+        ]);
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email']
+        ]);
+
+        $request->session()->flash('success', 'User Account successfully been created!');
+
+        return redirect('/admin');
+    }
+
+    /**
+     * Show the form for editing a user.
+     *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */

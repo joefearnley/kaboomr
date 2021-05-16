@@ -13,14 +13,21 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4 align-self-center">
+        @if ($message = Session::get('success'))
         <div class="col-md-10">
-            @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>	
                 <strong>{{ $message }}</strong>
             </div>
-            @endif
+        </div>
+        @endif
+        <div class="col-sm-5 col-md-7">
             <h3>User Accounts</h3>
+        </div>
+        <div class="col-sm-6 col-md-3 text-sm-right">
+            <a href="{{ route ('users.create') }}" class="btn btn-secondary mr-3">
+                Create User Account
+            </a>
         </div>
     </div>
     @foreach ($users as $user)
