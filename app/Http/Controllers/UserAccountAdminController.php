@@ -41,16 +41,18 @@ class UserAccountAdminController extends Controller
         $request->validate([
             'name' => 'required|max:150',
             'email' => 'required|email',
+            'password' => 'required|min:8',
         ]);
 
         User::create([
-            'name' => $data['name'],
-            'email' => $data['email']
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
         ]);
 
         $request->session()->flash('success', 'User Account successfully been created!');
 
-        return redirect('/admin');
+        return redirect('/admin/users');
     }
 
     /**
