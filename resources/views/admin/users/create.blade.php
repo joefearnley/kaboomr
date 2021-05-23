@@ -26,7 +26,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" value="" name="name" class="form-control" id="name" aria-describedby="nameHelp">
+                            <input type="text" value="{{ old('name') }}" name="name" class="form-control" id="name" aria-describedby="nameHelp">
                             @error('name')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" value="" name="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            <input type="email" value="{{ old('email') }}" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                             @error('email')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Password</label>
-                            <input type="password" value="" name="password" class="form-control" id="password" aria-describedby="emailPassword">
+                            <input type="password" value="{{ old('password') }}" name="password" class="form-control" id="password" aria-describedby="emailPassword">
                             @error('password')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
