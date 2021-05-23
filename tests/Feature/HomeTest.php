@@ -17,7 +17,8 @@ class HomeTest extends TestCase
 
         $response->assertViewIs('home');
 
-        $response->assertSee('Kaboomr - your bookmarks are here.');
+        $response->assertSee('Kaboomr');
+        $response->assertSee('Your bookmarks are here.');
         $response->assertSee('Log in');
         $response->assertSee('Sign up');
     }
