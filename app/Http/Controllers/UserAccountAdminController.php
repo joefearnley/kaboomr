@@ -40,7 +40,7 @@ class UserAccountAdminController extends Controller
     {
         $request->validate([
             'name' => 'required|max:150',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
         ]);
 
@@ -52,7 +52,7 @@ class UserAccountAdminController extends Controller
 
         $request->session()->flash('success', 'User Account successfully been created!');
 
-        return redirect('/admin/users');
+        return redirect(route('users.index'));
     }
 
     /**

@@ -13,9 +13,7 @@ class UserAccountAdminCreateTest extends TestCase
 
     public function test_cannot_access_create_user_account_form_when_not_authenticated()
     {
-        $user = User::factory()->create();
-
-        $response = $this->get(route('users.create', $user));
+        $response = $this->get(route('users.create'));
 
         $response->assertStatus(302);
         $response->assertRedirect(route('login'));
@@ -23,13 +21,11 @@ class UserAccountAdminCreateTest extends TestCase
 
     public function test_authenticated_non_admin_user_cannot_access_create_user_account_form()
     {
-        $admin = User::factory()->create();
-
         $user = User::factory()->create();
 
         $response = $this
             ->actingAs($user)
-            ->get(route('users.create', $user));
+            ->get(route('users.create'));
 
             $response->assertStatus(302);
             $response->assertRedirect(route('bookmarks.index'));
@@ -40,8 +36,6 @@ class UserAccountAdminCreateTest extends TestCase
         $admin = User::factory()->create([
             'is_admin' => 1
         ]);
-
-        $user = User::factory()->create();
 
         $response = $this
             ->actingAs($admin)
@@ -58,72 +52,190 @@ class UserAccountAdminCreateTest extends TestCase
             'is_admin' => 1
         ]);
 
-        $user = User::factory()->create();
-
         $formData = [
-            '_method' => 'PUT',
             'name' => '',
-            'email' => $user->url,
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
         ];
 
         $response = $this
             ->actingAs($admin)
-            ->post(route('users.store', $user), $formData);
+            ->post(route('users.store'), $formData);
 
         $response->assertStatus(302);
 
        $response->assertSessionHasErrors('name');
     }
 
-    // public function test_cannot_update_user_account_with_no_email()
+    public function test_cannot_create_user_account_with_no_email()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => '',
+            'password' => 'secret123',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+
+       $response->assertSessionHasErrors('email');
+    }
+
+    public function test_cannot_create_user_account_with_no_password()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => '',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+
+       $response->assertSessionHasErrors('password');
+    }
+
+    public function test_cannot_create_user_account_with_password_not_minimum_length()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => '12334',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+
+       $response->assertSessionHasErrors('password');
+    }
+
+    public function test_can_create_user_account()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+        ]);
+    }
+
+    public function test_user_account_is_active_and_not_admin_as_default()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'is_admin' => '0',
+            'is_active' => '1',
+        ]);
+    }
+
+    public function test_cannot_create_user_account_with_non_unique_email_addres()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
+
+        $existingUser = User::factory()->create([
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+        ]);
+
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+            'is_active' => '1',
+            'is_admin' => '0',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+
+        $response->assertSessionHasErrors('email');
+    }
+
+    // public function test_can_create_adnub_user_account()
     // {
     //     $admin = User::factory()->create([
     //         'is_admin' => 1
     //     ]);
 
-    //     $user = User::factory()->create();
-
     //     $formData = [
-    //         '_method' => 'PUT',
-    //         'name' => $user->name,
-    //         'email' => '',
+    //         'name' => 'John Doe',
+    //         'email' => 'john.doe123@gmail.com',
+    //         'password' => 'secret123',
+    //         'is_admin' => '1',
+    //         'is_active' => '1',
     //     ];
 
     //     $response = $this
     //         ->actingAs($admin)
-    //         ->post(route('users.update', $user), $formData);
+    //         ->post(route('users.store'), $formData);
 
     //     $response->assertStatus(302);
-
-    //    $response->assertSessionHasErrors('email');
-    // }
-
-    // public function test_can_edit_user()
-    // {
-    //     $admin = User::factory()->create([
-    //         'is_admin' => 1
-    //     ]);
-
-    //     $user = User::factory()->create();
-
-    //     $updatedUserName = 'John Doe';
-    //     $updatedUserEmail = 'john.doe123@gmail.com';
-
-    //     $formData = [
-    //         '_method' => 'PUT',
-    //         'name' => $updatedUserName,
-    //         'email' => $updatedUserEmail,
-    //     ];
-
-    //     $response = $this
-    //         ->actingAs($admin)
-    //         ->post(route('users.update', $user), $formData);
-
-    //     $response->assertStatus(302);
+    //     $response->assertRedirect(route('users.index'));
 
     //     $this->assertDatabaseHas('users', [
-    //         'name' => $updatedUserName,
-    //         'email' => $updatedUserEmail,
+    //         'name' => 'John Doe',
+    //         'email' => 'john.doe123@gmail.com',
+    //         'is_admin' => '0',
+    //         'is_active' => '1',
     //     ]);
     // }
 
@@ -139,19 +251,18 @@ class UserAccountAdminCreateTest extends TestCase
     //     $updatedUserEmail = 'john.doe123@gmail.com';
 
     //     $formData = [
-    //         '_method' => 'PUT',
     //         'name' => $updatedUserName,
     //         'email' => $updatedUserEmail,
     //     ];
 
     //     $response = $this
     //         ->actingAs($admin)
-    //         ->post(route('users.update', $user), $formData);
+    //         ->post(route('users.store', $user), $formData);
 
     //     $response->assertStatus(302);
     //     $response->assertRedirect(route('users.index'));
     //     $response->assertSessionHas([
-    //         'success' => 'User successfully updated!'
+    //         'success' => 'User Account successfully been created!'
     //     ]);
     // }
 
