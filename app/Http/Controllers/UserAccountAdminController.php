@@ -48,6 +48,8 @@ class UserAccountAdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'is_admin' => $request->is_admin === 'on',
+            'is_active' => $request->is_active === 'on',
         ]);
 
         $request->session()->flash('success', 'User Account successfully been created!');

@@ -56,6 +56,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => '',
             'email' => 'john.doe123@gmail.com',
             'password' => 'secret123',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -77,6 +79,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => '',
             'password' => 'secret123',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -98,6 +102,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john.doe123@gmail.com',
             'password' => '',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -119,6 +125,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john.doe123@gmail.com',
             'password' => '12334',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -140,6 +148,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john.doe123@gmail.com',
             'password' => 'secret123',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -165,6 +175,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john.doe123@gmail.com',
             'password' => 'secret123',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -197,8 +209,8 @@ class UserAccountAdminCreateTest extends TestCase
             'name' => 'John Doe',
             'email' => 'john.doe123@gmail.com',
             'password' => 'secret123',
-            'is_active' => '1',
-            'is_admin' => '0',
+            'is_admin' => '',
+            'is_active' => 'on',
         ];
 
         $response = $this
@@ -210,60 +222,86 @@ class UserAccountAdminCreateTest extends TestCase
         $response->assertSessionHasErrors('email');
     }
 
-    // public function test_can_create_adnub_user_account()
-    // {
-    //     $admin = User::factory()->create([
-    //         'is_admin' => 1
-    //     ]);
+    public function test_can_create_admin_user_account()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
 
-    //     $formData = [
-    //         'name' => 'John Doe',
-    //         'email' => 'john.doe123@gmail.com',
-    //         'password' => 'secret123',
-    //         'is_admin' => '1',
-    //         'is_active' => '1',
-    //     ];
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+            'is_admin' => 'on',
+            'is_active' => 'on',
+        ];
 
-    //     $response = $this
-    //         ->actingAs($admin)
-    //         ->post(route('users.store'), $formData);
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
 
-    //     $response->assertStatus(302);
-    //     $response->assertRedirect(route('users.index'));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
 
-    //     $this->assertDatabaseHas('users', [
-    //         'name' => 'John Doe',
-    //         'email' => 'john.doe123@gmail.com',
-    //         'is_admin' => '0',
-    //         'is_active' => '1',
-    //     ]);
-    // }
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'is_admin' => '1',
+            'is_active' => '1',
+        ]);
+    }
 
-    // public function test_update_user_shows_flash_message_on_success()
-    // {
-    //     $admin = User::factory()->create([
-    //         'is_admin' => 1
-    //     ]);
+    public function test_can_create_inactive_user_account()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
 
-    //     $user = User::factory()->create();
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+            'is_admin' => 'on',
+            'is_active' => '',
+        ];
 
-    //     $updatedUserName = 'John Doe';
-    //     $updatedUserEmail = 'john.doe123@gmail.com';
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
 
-    //     $formData = [
-    //         'name' => $updatedUserName,
-    //         'email' => $updatedUserEmail,
-    //     ];
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
 
-    //     $response = $this
-    //         ->actingAs($admin)
-    //         ->post(route('users.store', $user), $formData);
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'is_admin' => '1',
+            'is_active' => '0',
+        ]);
+    }
 
-    //     $response->assertStatus(302);
-    //     $response->assertRedirect(route('users.index'));
-    //     $response->assertSessionHas([
-    //         'success' => 'User Account successfully been created!'
-    //     ]);
-    // }
+    public function test_update_user_shows_flash_message_on_success()
+    {
+        $admin = User::factory()->create([
+            'is_admin' => 1
+        ]);
 
+        $formData = [
+            'name' => 'John Doe',
+            'email' => 'john.doe123@gmail.com',
+            'password' => 'secret123',
+            'is_admin' => '',
+            'is_active' => 'on',
+        ];
+
+        $response = $this
+            ->actingAs($admin)
+            ->post(route('users.store'), $formData);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('users.index'));
+        $response->assertSessionHas([
+            'success' => 'User Account successfully been created!'
+        ]);
+    }
 }
