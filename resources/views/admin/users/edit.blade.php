@@ -6,7 +6,7 @@
         <div class="col-md-10 mt-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item"><a href="/admin/users">User Accounts</a></li>
                     <li class="breadcrumb-item">Edit User Account</li>
                 </ol>
