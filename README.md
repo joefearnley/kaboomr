@@ -40,8 +40,4 @@ php artisan test
 ```
 
 ## Deploying
-[My version of this application](https://kaboomr.herokuapp.com/) is deployed to [Heroku](https://heroku.com), which you can follow the instruction here on how to do that:
-
-[Getting Started with Laravel on Heroku](https://devcenter.heroku.com/articles/getting-started-with-laravel)
-
-Of course it can also be deploy to any server a Laravel application can be deployed to.
+My version of this site runs on a [Digital Ocean](https://www.digitalocean.com/) droplet and is a work in progress. I would like to get a CI tool set up to run the tests when push to Github and possibly push to Digital Ocean as well.
